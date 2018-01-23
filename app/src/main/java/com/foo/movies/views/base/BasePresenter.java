@@ -1,14 +1,22 @@
 package com.foo.movies.views.base;
 
 
-abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
+import com.foo.movies.data.Controller;
+
+import io.reactivex.disposables.CompositeDisposable;
+
+public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     private static final String TAG = "BasePresenter";
+
+    private Controller controller;
+
+    private CompositeDisposable compositeDisposable;
 
     private V mvpView = null;
 
-    //Default Constructor
-    public BasePresenter() {
-
+    public BasePresenter(Controller controller, CompositeDisposable compositeDisposable) {
+        this.controller = controller;
+        this.compositeDisposable = compositeDisposable;
     }
 
     @Override
@@ -23,5 +31,17 @@ abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     public boolean isViewAttached() {
         return mvpView != null;
+    }
+
+    public V getMvpView() {
+        return mvpView;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public CompositeDisposable getCompositeDisposable() {
+        return compositeDisposable;
     }
 }

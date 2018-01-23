@@ -4,6 +4,7 @@ package com.foo.movies.di.component;
 import com.foo.movies.views.MoviesActivity;
 import com.foo.movies.di.PerActivity;
 import com.foo.movies.di.module.ActivityModule;
+import com.foo.movies.views.splash.SplashActivity;
 
 import dagger.Component;
 
@@ -14,5 +15,5 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class,})
 public interface ActivityComponent {
-    void inject(MoviesActivity activity);
+    void inject(SplashActivity activity);
 }

@@ -7,13 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.foo.movies.R;
 import com.foo.movies.views.base.BaseActivity;
 
-public class MoviesActivity extends BaseActivity {
+public class MoviesActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
 
     @Override

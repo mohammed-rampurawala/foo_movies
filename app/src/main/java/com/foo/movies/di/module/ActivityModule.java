@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.foo.movies.di.ActivityContext;
 import com.foo.movies.di.PerActivity;
+import com.foo.movies.views.splash.ISplashView;
+import com.foo.movies.views.splash.ISplashPresenter;
+import com.foo.movies.views.splash.SplashPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,5 +38,16 @@ public class ActivityModule {
     @Provides
     AppCompatActivity provideActivity() {
         return mActivity;
+    }
+
+    @Provides
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
+    }
+
+    @Provides
+    @PerActivity
+    ISplashPresenter<ISplashView> provideSplashPresenter(SplashPresenterImpl<ISplashView> presenter) {
+        return presenter;
     }
 }

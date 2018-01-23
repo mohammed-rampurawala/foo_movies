@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.foo.movies.FooMoviesApp;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.di.component.DaggerActivityComponent;
+import com.foo.movies.di.module.ActivityModule;
 
 /**
  * Base class for the all the activities in app and handling hide/show loading events
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
                 .applicationComponent((((FooMoviesApp) getApplicationContext())).getApplicationComponent())
                 .build();
     }
