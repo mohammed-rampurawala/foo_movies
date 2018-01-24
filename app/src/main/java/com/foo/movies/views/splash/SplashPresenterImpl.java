@@ -36,12 +36,15 @@ public class SplashPresenterImpl<V extends ISplashView> extends BasePresenter<V>
                         .subscribe(new Consumer<ConfigurationResponse>() {
                             @Override
                             public void accept(ConfigurationResponse configurationResponse) throws Exception {
-                                AppLogger.e(configurationResponse.toString());
+                                getMvpView().hideLoading();
+                                getMvpView().openMoviesActivity();
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
                                 AppLogger.e(throwable,"Exception While Getting Configuration");
+                                getMvpView().hideLoading();
+                                getMvpView().openMoviesActivity();
                             }
                         }));
     }

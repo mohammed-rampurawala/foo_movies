@@ -10,6 +10,13 @@ public class ConfigurationResponse {
 
     private Images images;
 
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
 
     public class Images{
         private String baseUrl;

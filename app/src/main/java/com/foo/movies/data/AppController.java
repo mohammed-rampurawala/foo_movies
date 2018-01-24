@@ -1,7 +1,9 @@
 package com.foo.movies.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.foo.movies.MoviesConstants;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.network.ApiHelper;
 import com.foo.movies.di.ApplicationContext;
@@ -44,6 +46,17 @@ public class AppController implements Controller {
         return mApiHelper.getApiConfiguration().map(new Function<ConfigurationResponse, ConfigurationResponse>() {
             @Override
             public ConfigurationResponse apply(ConfigurationResponse configurationResponse) throws Exception {
+                if (configurationResponse == null || configurationResponse.getImages() == null) {
+                    return configurationResponse;
+                }
+                //Store the url in Preferences
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences(MoviesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                ConfigurationResponse.Images images = configurationResponse.getImages();
+                edit.putString(MoviesConstants.LOGO_URL, images.getBaseUrl() + images.getLogoSizes().get(images.getLogoSizes().size() - 1));
+                edit.putString(MoviesConstants.POSTER_URL, images.getBaseUrl() + images.getPosterSizes().get(images.getPosterSizes().size() - 1));
+                edit.apply();
+
                 return configurationResponse;
             }
         });
