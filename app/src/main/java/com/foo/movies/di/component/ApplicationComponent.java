@@ -28,4 +28,6 @@ public interface ApplicationComponent {
     Context context();
 
     Application application();
+    
+    Controller getController();
 }
