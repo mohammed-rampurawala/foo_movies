@@ -19,6 +19,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -46,25 +48,39 @@ public class ApplicationModule {
         return mApplication;
     }
 
-    /*@Provides
+
+    @Provides
+    @Singleton
+    HttpLoggingInterceptor provideLoggingInterceptor(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideClient(HttpLoggingInterceptor interceptor){
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(interceptor);
+        return httpClient.build();
+    }
+
+    @Provides
     @Singleton
     Gson provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return gsonBuilder.create();
-    }*/
+    }
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
-        Gson gson = gsonBuilder.create();
-
+    Retrofit provideRetrofit(Gson gson, OkHttpClient client) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://api.themoviedb.org/3/")
+                .client(client)
+                .baseUrl(BuildConfig.BASE_URL)
                 .build();
     }
 

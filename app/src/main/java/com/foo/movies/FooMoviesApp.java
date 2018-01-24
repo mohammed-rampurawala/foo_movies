@@ -6,6 +6,7 @@ import com.foo.movies.data.Controller;
 import com.foo.movies.di.component.ApplicationComponent;
 import com.foo.movies.di.component.DaggerApplicationComponent;
 import com.foo.movies.di.module.ApplicationModule;
+import com.foo.movies.utils.AppLogger;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,7 @@ public class FooMoviesApp extends Application {
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+        AppLogger.init();
 
         mApplicationComponent.inject(this);
     }

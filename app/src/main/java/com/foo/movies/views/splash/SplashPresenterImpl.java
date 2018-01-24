@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.foo.movies.data.Controller;
 import com.foo.movies.data.model.ConfigurationResponse;
+import com.foo.movies.utils.AppLogger;
 import com.foo.movies.views.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public class SplashPresenterImpl<V extends ISplashView> extends BasePresenter<V>
                         .subscribe(new Consumer<ConfigurationResponse>() {
                             @Override
                             public void accept(ConfigurationResponse configurationResponse) throws Exception {
-                                Log.e("Hello", configurationResponse.toString());
+                                AppLogger.e(configurationResponse.toString());
                             }
                         }, new Consumer<Throwable>() {
                             @Override

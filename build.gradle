@@ -24,13 +24,18 @@ buildscript {
         rxjava2Version = '2.0.6'
         rxandroidVersion = '2.0.1'
         retrofitVersion = '2.3.0'
+        interceptorVersion = '3.8.0'
+        httpClientVersion = '3.9.1'
+
+        timberVersion = '4.5.1'
 
         //Test dependencies
         junitVersion = '4.12'
         espressoVersion = '3.0.0'
         mockitoVersion = '2.7.1'
+
         moviesDBApiKey = '"bbe2969c244694d5eb27b4bf8ff8dedc"'
-        baseUrl = '"https://api.themoviedb.org/3"'
+        baseUrl = '"https://api.themoviedb.org/3/"'
     }
 }
 
