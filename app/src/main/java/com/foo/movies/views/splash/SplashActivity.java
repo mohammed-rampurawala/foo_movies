@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.foo.movies.R;
-import com.foo.movies.views.MoviesActivity;
+import com.foo.movies.views.movies.MoviesActivity;
 import com.foo.movies.views.base.BaseActivity;
 
 import javax.inject.Inject;

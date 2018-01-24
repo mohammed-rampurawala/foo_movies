@@ -1,4 +1,4 @@
-package com.foo.movies.views;
+package com.foo.movies.views.movies;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,13 +14,24 @@ import android.view.MenuItem;
 import com.foo.movies.R;
 import com.foo.movies.views.base.BaseActivity;
 
-public class MoviesActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class MoviesActivity extends BaseActivity implements IMoviesMovie {
     private DrawerLayout drawerLayout;
+
+    @Inject
+    IMoviePresenter<IMoviesMovie> moviePresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movies_activity);
+
+        getActivityComponent().inject(this);
+        moviePresenter.onAttach(this);
+
+        moviePresenter.fetchPopularMovies(1);
+
         initToolbar();
         initUI();
     }

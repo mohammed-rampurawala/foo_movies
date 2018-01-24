@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.foo.movies.di.ActivityContext;
 import com.foo.movies.di.PerActivity;
+import com.foo.movies.views.movies.IMoviePresenter;
+import com.foo.movies.views.movies.IMoviesMovie;
+import com.foo.movies.views.movies.MoviesPresenterImpl;
 import com.foo.movies.views.splash.ISplashView;
 import com.foo.movies.views.splash.ISplashPresenter;
 import com.foo.movies.views.splash.SplashPresenterImpl;
@@ -48,6 +51,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     ISplashPresenter<ISplashView> provideSplashPresenter(SplashPresenterImpl<ISplashView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    IMoviePresenter<IMoviesMovie> provideMoviePresenter(MoviesPresenterImpl<IMoviesMovie> presenter) {
         return presenter;
     }
 }

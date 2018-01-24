@@ -2,6 +2,7 @@ package com.foo.movies.data.network;
 
 import com.foo.movies.BuildConfig;
 import com.foo.movies.data.model.ConfigurationResponse;
+import com.foo.movies.data.model.MovieMainResponse;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,6 +27,21 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<ConfigurationResponse> getApiConfiguration() {
         return moviesApiService.getConfiguration(BuildConfig.API_KEY);
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getPopularMovies(int page) {
+        return moviesApiService.getPopularMovies(BuildConfig.API_KEY, "en-US", page);
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getTopRatedMovies() {
+        return null;
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getSearchedMovies(String searchedQuery) {
+        return null;
     }
 
 }

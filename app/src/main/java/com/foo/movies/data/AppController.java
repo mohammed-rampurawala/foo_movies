@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.foo.movies.MoviesConstants;
 import com.foo.movies.data.model.ConfigurationResponse;
+import com.foo.movies.data.model.MovieMainResponse;
 import com.foo.movies.data.network.ApiHelper;
 import com.foo.movies.di.ApplicationContext;
 
@@ -60,6 +61,21 @@ public class AppController implements Controller {
                 return configurationResponse;
             }
         });
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getPopularMovies(int page) {
+        return mApiHelper.getPopularMovies(page);
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getTopRatedMovies() {
+        return null;
+    }
+
+    @Override
+    public Observable<MovieMainResponse> getSearchedMovies(String searchedQuery) {
+        return null;
     }
 
 }

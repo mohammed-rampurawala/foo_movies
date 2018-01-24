@@ -2,9 +2,9 @@ package com.foo.movies.data.network;
 
 
 import com.foo.movies.data.model.ConfigurationResponse;
+import com.foo.movies.data.model.MovieMainResponse;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 
 /**
  * Created by mohammed.rampurawala on 1/23/2018.
@@ -13,4 +13,9 @@ import retrofit2.Call;
 public interface ApiHelper {
     Observable<ConfigurationResponse> getApiConfiguration();
 
+    Observable<MovieMainResponse> getPopularMovies(int page);
+
+    Observable<MovieMainResponse> getTopRatedMovies();
+
+    Observable<MovieMainResponse> getSearchedMovies(String searchedQuery);
 }
