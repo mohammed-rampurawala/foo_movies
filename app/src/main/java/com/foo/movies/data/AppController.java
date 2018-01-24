@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.network.ApiHelper;
-import com.foo.movies.data.network.MoviesApiService;
 import com.foo.movies.di.ApplicationContext;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 /**
  * Entry point for all the db and network calls
@@ -41,7 +41,12 @@ public class AppController implements Controller {
 
     @Override
     public Observable<ConfigurationResponse> getApiConfiguration() {
-        return mApiHelper.getApiConfiguration();
+        return mApiHelper.getApiConfiguration().map(new Function<ConfigurationResponse, ConfigurationResponse>() {
+            @Override
+            public ConfigurationResponse apply(ConfigurationResponse configurationResponse) throws Exception {
+                return configurationResponse;
+            }
+        });
     }
 
 }
