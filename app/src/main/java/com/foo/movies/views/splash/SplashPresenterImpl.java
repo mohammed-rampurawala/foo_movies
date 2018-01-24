@@ -1,9 +1,6 @@
 package com.foo.movies.views.splash;
 
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.foo.movies.data.Controller;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.utils.AppLogger;
@@ -44,7 +41,7 @@ public class SplashPresenterImpl<V extends ISplashView> extends BasePresenter<V>
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                Toast.makeText(getMvpView().getMoviesContext(), "Exception", Toast.LENGTH_SHORT).show();
+                                AppLogger.e(throwable,"Exception While Getting Configuration");
                             }
                         }));
     }
