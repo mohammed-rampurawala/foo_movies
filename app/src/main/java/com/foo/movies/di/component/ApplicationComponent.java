@@ -7,6 +7,7 @@ import android.content.Context;
 import com.foo.movies.FooMoviesApp;
 import com.foo.movies.di.ApplicationContext;
 import com.foo.movies.di.module.ApplicationModule;
+import com.foo.movies.data.Controller;
 
 import javax.inject.Singleton;
 
@@ -19,7 +20,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class,})
+@Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
     void inject(FooMoviesApp app);
