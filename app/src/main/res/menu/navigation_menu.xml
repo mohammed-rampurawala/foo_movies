@@ -3,18 +3,18 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/drawer_home"
+            android:id="@+id/drawer_top_rated"
             android:checked="true"
             android:icon="@drawable/ic_fav"
             android:title="@string/top_rated" />
 
         <item
-            android:id="@+id/drawer_favourite"
+            android:id="@+id/drawer_popular"
             android:icon="@drawable/ic_fav"
             android:title="@string/popular" />
 
         <item
-            android:id="@+id/drawer_downloaded"
+            android:id="@+id/drawer_search"
             android:icon="@drawable/ic_fav"
             android:title="@string/search" />
     </group>

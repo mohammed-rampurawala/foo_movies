@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by mohammed.rampurawala on 1/24/2018.
  */
 
-public class MoviesPresenterImpl<V extends IMoviesMovie> extends BasePresenter<V> implements IMoviePresenter<V> {
+public class MoviesPresenterImpl<V extends IMoviesView> extends BasePresenter<V> implements IMoviePresenter<V> {
 
     @Inject
     public MoviesPresenterImpl(Controller controller, CompositeDisposable compositeDisposable) {

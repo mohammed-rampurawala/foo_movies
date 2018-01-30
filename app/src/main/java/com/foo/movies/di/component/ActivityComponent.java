@@ -5,6 +5,7 @@ import com.foo.movies.di.PerActivity;
 import com.foo.movies.di.module.ActivityModule;
 import com.foo.movies.views.movies.MoviesActivity;
 import com.foo.movies.views.splash.SplashActivity;
+import com.foo.movies.views.toprated.TopRatedFragment;
 
 import dagger.Component;
 
@@ -18,4 +19,6 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
 
     void inject(MoviesActivity moviesActivity);
+
+    void inject(TopRatedFragment topRatedFragment);
 }

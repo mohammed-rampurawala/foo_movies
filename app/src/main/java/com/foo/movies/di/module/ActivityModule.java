@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import com.foo.movies.di.ActivityContext;
 import com.foo.movies.di.PerActivity;
 import com.foo.movies.views.movies.IMoviePresenter;
-import com.foo.movies.views.movies.IMoviesMovie;
+import com.foo.movies.views.movies.IMoviesView;
 import com.foo.movies.views.movies.MoviesPresenterImpl;
 import com.foo.movies.views.splash.ISplashView;
 import com.foo.movies.views.splash.ISplashPresenter;
 import com.foo.movies.views.splash.SplashPresenterImpl;
+import com.foo.movies.views.toprated.ITopRatedMView;
+import com.foo.movies.views.toprated.ITopRatedPresenter;
+import com.foo.movies.views.toprated.TopRatedPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -56,7 +59,13 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    IMoviePresenter<IMoviesMovie> provideMoviePresenter(MoviesPresenterImpl<IMoviesMovie> presenter) {
+    IMoviePresenter<IMoviesView> provideMoviePresenter(MoviesPresenterImpl<IMoviesView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ITopRatedPresenter<ITopRatedMView> provideTopRatedPresenter(TopRatedPresenterImpl<ITopRatedMView> presenter) {
         return presenter;
     }
 }

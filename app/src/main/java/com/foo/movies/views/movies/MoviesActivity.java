@@ -7,20 +7,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.foo.movies.R;
 import com.foo.movies.views.base.BaseActivity;
+import com.foo.movies.views.base.BaseFragment;
+import com.foo.movies.views.toprated.TopRatedFragment;
 
 import javax.inject.Inject;
 
-public class MoviesActivity extends BaseActivity implements IMoviesMovie {
+public class MoviesActivity extends BaseActivity implements IMoviesView {
     private DrawerLayout drawerLayout;
 
     @Inject
-    IMoviePresenter<IMoviesMovie> moviePresenter;
+    IMoviePresenter<IMoviesView> moviePresenter;
+
+    private NavigationView navigationView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,20 +34,30 @@ public class MoviesActivity extends BaseActivity implements IMoviesMovie {
         getActivityComponent().inject(this);
         moviePresenter.onAttach(this);
 
-        moviePresenter.fetchPopularMovies(1);
+//        moviePresenter.fetchPopularMovies(1);
 
         initToolbar();
         initUI();
+        addFragment(TopRatedFragment.newInstance());
+        navigationView.setCheckedItem(R.id.drawer_top_rated);
+    }
+
+    private void addFragment(BaseFragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .add(R.id.content_frame, fragment, null)
+                .commit();
     }
 
     private void initUI() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        final NavigationView view = (NavigationView) findViewById(R.id.navigation);
-        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Snackbar.make(view, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(navigationView, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
                 menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 return true;

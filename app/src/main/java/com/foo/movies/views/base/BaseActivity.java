@@ -1,6 +1,7 @@
 package com.foo.movies.views.base;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.foo.movies.FooMoviesApp;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.di.component.DaggerActivityComponent;
 import com.foo.movies.di.module.ActivityModule;
+import com.foo.movies.utils.CommonUtils;
 
 /**
  * Base class for the all the activities in app and handling hide/show loading events
@@ -19,6 +21,8 @@ import com.foo.movies.di.module.ActivityModule;
 public abstract class BaseActivity extends AppCompatActivity implements MvpView {
 
     private ActivityComponent mActivityComponent;
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,12 +35,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     @Override
     public void showLoading() {
-
+        hideLoading();
+        mProgressDialog = CommonUtils.showLoadingDialog(this.getMoviesContext());
     }
 
     @Override
     public void hideLoading() {
-
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
     }
 
     @Override
