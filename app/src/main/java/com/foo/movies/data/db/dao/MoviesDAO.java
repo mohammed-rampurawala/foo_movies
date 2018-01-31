@@ -8,6 +8,9 @@ import android.arch.persistence.room.Query;
 import com.foo.movies.data.model.Movie;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+
+import io.reactivex.Observable;
 
 /**
  * Created by mohammed.rampurawala on 1/31/2018.
@@ -25,6 +28,6 @@ public interface MoviesDAO {
     void delete(Movie movie);
 
     @Query("SELECT * FROM movie WHERE title LIKE :searchQuery")
-    List<Movie> searchMovie(String searchQuery);
+    Observable<List<Movie>> searchMovie(String searchQuery);
 
 }

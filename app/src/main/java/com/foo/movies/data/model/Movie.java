@@ -2,6 +2,7 @@ package com.foo.movies.data.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * Created by mohammed.rampurawala on 1/24/2018.
  */
 
-@Entity
+@Entity(indices = {@Index(value = {"title"}), @Index(value = {"description"})})
 public class Movie {
     @PrimaryKey
     private int id;
