@@ -26,6 +26,8 @@ buildscript {
         retrofitVersion = '2.3.0'
         interceptorVersion = '3.8.0'
         httpClientVersion = '3.9.1'
+        butterknifeVersion = '8.8.1'
+        searchViewVersion = '1.4.0'
 
         timberVersion = '4.5.1'
 

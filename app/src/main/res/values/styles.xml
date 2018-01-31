@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="BaseTheme" />
@@ -15,6 +15,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Widget.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
 

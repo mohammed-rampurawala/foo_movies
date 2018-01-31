@@ -22,23 +22,4 @@ public class MoviesPresenterImpl<V extends IMoviesView> extends BasePresenter<V>
     public MoviesPresenterImpl(Controller controller, CompositeDisposable compositeDisposable) {
         super(controller, compositeDisposable);
     }
-
-    @Override
-    public void fetchPopularMovies(int page) {
-        getCompositeDisposable().add(getController()
-                .getPopularMovies(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<MovieMainResponse>() {
-                    @Override
-                    public void accept(MovieMainResponse movieMainResponse) throws Exception {
-                        AppLogger.d(movieMainResponse.toString());
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        AppLogger.d(throwable, "Exception Occured while fetching the popular movies");
-                    }
-                }));
-    }
 }

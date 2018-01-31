@@ -1,6 +1,5 @@
-package com.foo.movies.views.toprated;
+package com.foo.movies.views.popular;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.foo.movies.R;
@@ -15,18 +14,18 @@ import java.util.ArrayList;
  * Created by mohammed.rampurawala on 1/30/2018.
  */
 
-public class TopRatedMoviesAdapter extends BaseAdapter {
+public class PopularMoviesAdapter extends BaseAdapter {
 
 
     private ArrayList<MovieModel> moviesList = new ArrayList<>();
 
-    public TopRatedMoviesAdapter(BaseActivity activity) {
+    public PopularMoviesAdapter(BaseActivity activity) {
         super(activity);
     }
 
     @Override
     public BaseMoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TopRatedViewHolder(getInflater().inflate(R.layout.movies_item, parent, false));
+        return new PopularViewHolder(getInflater().inflate(R.layout.movies_item, parent, false));
     }
 
     @Override

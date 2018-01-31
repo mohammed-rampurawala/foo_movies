@@ -6,8 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.foo.movies.FooMoviesApp;
+import com.foo.movies.R;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.di.component.DaggerActivityComponent;
 import com.foo.movies.di.module.ActivityModule;
@@ -36,7 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this.getMoviesContext());
+        mProgressDialog = CommonUtils.showLoadingDialog(this.getMoviesActivity());
     }
 
     @Override
@@ -58,5 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     public ActivityComponent getActivityComponent() {
         return mActivityComponent;
+    }
+
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(getMoviesActivity(), getString(R.string.error_message), Toast.LENGTH_SHORT).show();
     }
 }

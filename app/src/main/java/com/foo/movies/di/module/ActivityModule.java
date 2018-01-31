@@ -9,6 +9,9 @@ import com.foo.movies.di.PerActivity;
 import com.foo.movies.views.movies.IMoviePresenter;
 import com.foo.movies.views.movies.IMoviesView;
 import com.foo.movies.views.movies.MoviesPresenterImpl;
+import com.foo.movies.views.popular.IPopularPresenter;
+import com.foo.movies.views.popular.IPopularView;
+import com.foo.movies.views.popular.PopularPresenterImpl;
 import com.foo.movies.views.splash.ISplashView;
 import com.foo.movies.views.splash.ISplashPresenter;
 import com.foo.movies.views.splash.SplashPresenterImpl;
@@ -66,6 +69,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     ITopRatedPresenter<ITopRatedMView> provideTopRatedPresenter(TopRatedPresenterImpl<ITopRatedMView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    IPopularPresenter<IPopularView> providePopularPresenter(PopularPresenterImpl<IPopularView> presenter) {
         return presenter;
     }
 }

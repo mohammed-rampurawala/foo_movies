@@ -3,4 +3,6 @@
     <string name="top_rated">Top Rated</string>
     <string name="popular">Popular</string>
     <string name="search">Search</string>
+    <string name="error_message">Unable to process... Please try again later</string>
+    <string name="empty_text">No Movies Present Currently</string>
 </resources>

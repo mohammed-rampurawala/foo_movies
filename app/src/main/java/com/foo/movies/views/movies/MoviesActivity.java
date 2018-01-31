@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.foo.movies.R;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
+import com.foo.movies.views.popular.PopularFragment;
 import com.foo.movies.views.toprated.TopRatedFragment;
 
 import javax.inject.Inject;
@@ -34,8 +35,6 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
         getActivityComponent().inject(this);
         moviePresenter.onAttach(this);
 
-//        moviePresenter.fetchPopularMovies(1);
-
         initToolbar();
         initUI();
         addFragment(TopRatedFragment.newInstance());
@@ -46,7 +45,7 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
         getSupportFragmentManager()
                 .beginTransaction()
                 .disallowAddToBackStack()
-                .add(R.id.content_frame, fragment, null)
+                .replace(R.id.content_frame, fragment, null)
                 .commit();
     }
 
@@ -57,12 +56,27 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Snackbar.make(navigationView, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
+                handleFragmentChange(menuItem);
                 menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 return true;
             }
         });
+    }
+
+    private void handleFragmentChange(MenuItem menuItem) {
+        if (menuItem.isChecked()) {
+            return;
+        }
+
+        switch (menuItem.getItemId()) {
+            case R.id.drawer_popular:
+                addFragment(PopularFragment.newInstance());
+                break;
+            case R.id.drawer_top_rated:
+                addFragment(TopRatedFragment.newInstance());
+                break;
+        }
     }
 
     private void initToolbar() {

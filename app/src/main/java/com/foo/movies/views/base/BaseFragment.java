@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.foo.movies.R;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.utils.CommonUtils;
 
@@ -46,7 +48,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     @Override
     public void showLoading() {
         hideLoading();
-        mProgressDialog = CommonUtils.showLoadingDialog(this.getMoviesContext());
+        mProgressDialog = CommonUtils.showLoadingDialog(this.getMoviesActivity());
     }
 
     @Override
@@ -74,5 +76,8 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         return ((BaseActivity) mActivity).getActivityComponent();
     }
 
-
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(mActivity, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+    }
 }

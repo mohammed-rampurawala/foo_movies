@@ -15,6 +15,8 @@ public interface MvpView {
 
     void hideLoading();
 
+    void showErrorMessage();
+
     Context getMoviesContext();
 
     AppCompatActivity getMoviesActivity();

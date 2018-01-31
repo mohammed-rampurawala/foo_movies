@@ -1,11 +1,10 @@
-package com.foo.movies.views.toprated;
+package com.foo.movies.views.popular;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +28,12 @@ import butterknife.Unbinder;
  * Created by mohammed.rampurawala on 1/30/2018.
  */
 
-public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
+public class PopularFragment extends BaseFragment implements IPopularView {
 
     @Inject
-    ITopRatedPresenter<ITopRatedMView> mPresenter;
+    IPopularPresenter<IPopularView> mPresenter;
 
-    private TopRatedMoviesAdapter mAdapter;
+    private PopularMoviesAdapter mAdapter;
 
     @BindView(R.id.movies_recyclerview)
     RecyclerView mRecyclerView;
@@ -44,9 +43,9 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
 
     private Unbinder bind;
 
-    public static TopRatedFragment newInstance() {
+    public static PopularFragment newInstance() {
         Bundle args = new Bundle();
-        TopRatedFragment fragment = new TopRatedFragment();
+        PopularFragment fragment = new PopularFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,12 +74,12 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
     }
 
     private void changeTitle() {
-        getMoviesActivity().getSupportActionBar().setTitle(getString(R.string.top_rated));
+        getMoviesActivity().getSupportActionBar().setTitle(getString(R.string.popular));
     }
 
     private void initAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getMoviesActivity(), getResources().getInteger(R.integer.span_count));
-        mAdapter = new TopRatedMoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter = new PopularMoviesAdapter((BaseActivity) getMoviesActivity());
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);

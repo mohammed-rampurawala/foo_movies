@@ -1,4 +1,4 @@
-package com.foo.movies.views.toprated;
+package com.foo.movies.views.popular;
 
 import com.foo.movies.data.Controller;
 import com.foo.movies.data.model.MovieMainResponse;
@@ -16,10 +16,10 @@ import io.reactivex.schedulers.Schedulers;
  * Created by mohammed.rampurawala on 1/30/2018.
  */
 
-public class TopRatedPresenterImpl<V extends ITopRatedMView> extends BasePresenter<V> implements ITopRatedPresenter<V> {
+public class PopularPresenterImpl<V extends IPopularView> extends BasePresenter<V> implements IPopularPresenter<V> {
 
     @Inject
-    public TopRatedPresenterImpl(Controller controller, CompositeDisposable compositeDisposable) {
+    public PopularPresenterImpl(Controller controller, CompositeDisposable compositeDisposable) {
         super(controller, compositeDisposable);
     }
 

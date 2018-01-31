@@ -9,5 +9,4 @@ import com.foo.movies.views.base.MvpPresenter;
 
 @PerActivity
 public interface IMoviePresenter<V extends IMoviesView> extends MvpPresenter<V> {
-    void fetchPopularMovies(int page);
 }
