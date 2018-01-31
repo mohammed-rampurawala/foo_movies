@@ -10,6 +10,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField 'String','API_KEY',"$rootProject.moviesDBApiKey"
         buildConfigField 'String','BASE_URL',"$rootProject.baseUrl"
+        buildConfigField 'String','DB_NAME','"movies_db"'
     }
     buildTypes {
         release {

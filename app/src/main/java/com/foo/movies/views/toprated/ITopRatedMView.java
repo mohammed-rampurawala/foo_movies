@@ -1,6 +1,6 @@
 package com.foo.movies.views.toprated;
 
-import com.foo.movies.data.model.MovieModel;
+import com.foo.movies.data.model.Movie;
 import com.foo.movies.views.base.MvpView;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface ITopRatedMView extends MvpView {
-    void refreshMovieList(ArrayList<MovieModel> results);
+    void refreshMovieList(ArrayList<Movie> results);
 
     void showEmptyView();
 }

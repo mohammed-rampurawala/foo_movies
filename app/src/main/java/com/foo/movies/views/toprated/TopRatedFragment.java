@@ -5,14 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.foo.movies.R;
-import com.foo.movies.data.model.MovieModel;
+import com.foo.movies.data.model.Movie;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
@@ -70,7 +69,7 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initAdapter();
-        mPresenter.fetchPopularMovies(1);
+        mPresenter.fetchTopRatedMovies(1);
         changeTitle();
     }
 
@@ -88,7 +87,7 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
 
 
     @Override
-    public void refreshMovieList(ArrayList<MovieModel> results) {
+    public void refreshMovieList(ArrayList<Movie> results) {
         if (mRecyclerView.getVisibility() == View.GONE) {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyTextView.setVisibility(View.GONE);

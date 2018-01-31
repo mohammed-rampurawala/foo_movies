@@ -7,5 +7,5 @@ import com.foo.movies.views.base.MvpPresenter;
  */
 
 public interface ITopRatedPresenter<V extends ITopRatedMView> extends MvpPresenter<V> {
-    void fetchPopularMovies(int page);
+    void fetchTopRatedMovies(int page);
 }

@@ -16,14 +16,12 @@ public interface MoviesApiService {
     Observable<ConfigurationResponse> getConfiguration(@Query("api_key") String apiKey);
 
 
-    @GET("movie/popular")
+    @GET("movie/popular?language='en-US'")
     Observable<MovieMainResponse> getPopularMovies(@Query("api_key") String apiKey,
-                                                   @Query("language") String language,
                                                    @Query("page") int page);
 
-    @GET("movie/top_rated")
+    @GET("movie/top_rated?language='en-US'")
     Observable<MovieMainResponse> getTopRatedMovies(@Query("api_key") String apiKey,
-                                                    @Query("language") String language,
                                                     @Query("page") int page);
 
     @GET("search/movie")

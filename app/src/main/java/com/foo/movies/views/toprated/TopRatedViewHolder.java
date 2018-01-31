@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.foo.movies.MoviesConstants;
 import com.foo.movies.R;
-import com.foo.movies.data.model.MovieModel;
+import com.foo.movies.data.model.Movie;
 import com.foo.movies.views.base.BaseMoviesViewHolder;
 
 import butterknife.BindView;
@@ -35,7 +35,7 @@ public class TopRatedViewHolder extends BaseMoviesViewHolder {
     }
 
     @Override
-    public void bind(MovieModel model) {
+    public void bind(Movie model) {
         Glide.with(movieImage.getContext())
                 .load(baseUrl + model.getPosterPath())
                 .into(movieImage);

@@ -31,12 +31,12 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Observable<MovieMainResponse> getPopularMovies(int page) {
-        return moviesApiService.getPopularMovies(BuildConfig.API_KEY, "en-US", page);
+        return moviesApiService.getPopularMovies(BuildConfig.API_KEY, page);
     }
 
     @Override
-    public Observable<MovieMainResponse> getTopRatedMovies() {
-        return null;
+    public Observable<MovieMainResponse> getTopRatedMovies(int page) {
+        return moviesApiService.getTopRatedMovies(BuildConfig.API_KEY, page);
     }
 
     @Override

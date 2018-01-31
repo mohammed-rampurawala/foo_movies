@@ -15,7 +15,7 @@ public interface ApiHelper {
 
     Observable<MovieMainResponse> getPopularMovies(int page);
 
-    Observable<MovieMainResponse> getTopRatedMovies();
+    Observable<MovieMainResponse> getTopRatedMovies(int page);
 
     Observable<MovieMainResponse> getSearchedMovies(String searchedQuery);
 }

@@ -1,39 +1,56 @@
 package com.foo.movies.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.ArrayList;
 
 /**
  * Created by mohammed.rampurawala on 1/24/2018.
  */
 
-public class MovieModel {
-    private int voteCount;
-
+@Entity
+public class Movie {
+    @PrimaryKey
     private int id;
 
+    @ColumnInfo(name = "vote_count")
+    private int voteCount;
+
+    @ColumnInfo(name = "video")
     private boolean video;
 
+    @ColumnInfo(name = "vote_average")
     private double voteAverage;
 
+    @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "popularity")
     private double popularity;
 
+    @ColumnInfo(name = "poster_path")
     private String posterPath;
 
+    @ColumnInfo(name = "original_language")
     private String originalLanguage;
 
+    @ColumnInfo(name = "original_title")
     private String originalTitle;
 
-    private ArrayList<Integer> genreIds;
-
+    @ColumnInfo(name = "backdrop_path")
     private String backdropPath;
 
+    @ColumnInfo(name = "overview")
     private String overview;
 
+    @ColumnInfo(name = "adult")
     private boolean adult;
 
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
+
 
     public int getVoteCount() {
         return voteCount;
@@ -105,14 +122,6 @@ public class MovieModel {
 
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
-    }
-
-    public ArrayList<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(ArrayList<Integer> genreIds) {
-        this.genreIds = genreIds;
     }
 
     public String getBackdropPath() {

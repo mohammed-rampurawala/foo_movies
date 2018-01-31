@@ -13,7 +13,7 @@ public class MovieMainResponse {
 
     private int totalPages;
 
-    private ArrayList<MovieModel> results;
+    private ArrayList<Movie> results;
 
     public int getPage() {
         return page;
@@ -39,11 +39,11 @@ public class MovieMainResponse {
         this.totalPages = totalPages;
     }
 
-    public ArrayList<MovieModel> getResults() {
+    public ArrayList<Movie> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<MovieModel> results) {
+    public void setResults(ArrayList<Movie> results) {
         this.results = results;
     }
 }

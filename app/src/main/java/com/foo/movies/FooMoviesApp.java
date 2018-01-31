@@ -1,8 +1,10 @@
 package com.foo.movies;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 
 import com.foo.movies.data.Controller;
+import com.foo.movies.data.db.MoviesDatabase;
 import com.foo.movies.di.component.ApplicationComponent;
 import com.foo.movies.di.component.DaggerApplicationComponent;
 import com.foo.movies.di.module.ApplicationModule;
@@ -30,6 +32,8 @@ public class FooMoviesApp extends Application {
         AppLogger.init();
 
         mApplicationComponent.inject(this);
+
+        MoviesDatabase database = Room.databaseBuilder(getApplicationContext(), MoviesDatabase.class, BuildConfig.DB_NAME).build();
     }
 
     public ApplicationComponent getApplicationComponent() {

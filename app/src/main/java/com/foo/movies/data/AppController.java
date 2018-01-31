@@ -69,8 +69,8 @@ public class AppController implements Controller {
     }
 
     @Override
-    public Observable<MovieMainResponse> getTopRatedMovies() {
-        return null;
+    public Observable<MovieMainResponse> getTopRatedMovies(int page) {
+        return mApiHelper.getTopRatedMovies(page);
     }
 
     @Override

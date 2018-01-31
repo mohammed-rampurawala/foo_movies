@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.foo.movies.R;
-import com.foo.movies.data.model.MovieModel;
+import com.foo.movies.data.model.Movie;
 import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
@@ -87,7 +87,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
 
 
     @Override
-    public void refreshMovieList(ArrayList<MovieModel> results) {
+    public void refreshMovieList(ArrayList<Movie> results) {
         if (mRecyclerView.getVisibility() == View.GONE) {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyTextView.setVisibility(View.GONE);

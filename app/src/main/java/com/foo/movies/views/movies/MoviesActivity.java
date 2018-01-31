@@ -1,5 +1,6 @@
 package com.foo.movies.views.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import com.foo.movies.R;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
 import com.foo.movies.views.popular.PopularFragment;
+import com.foo.movies.views.search.SearchActivity;
 import com.foo.movies.views.toprated.TopRatedFragment;
 
 import javax.inject.Inject;
@@ -57,7 +59,6 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 handleFragmentChange(menuItem);
-                menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 return true;
             }
@@ -72,11 +73,23 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
         switch (menuItem.getItemId()) {
             case R.id.drawer_popular:
                 addFragment(PopularFragment.newInstance());
+                menuItem.setChecked(true);
                 break;
             case R.id.drawer_top_rated:
                 addFragment(TopRatedFragment.newInstance());
+                menuItem.setChecked(true);
                 break;
+            case R.id.drawer_search:
+                startSearchActivity();
+                menuItem.setChecked(false);
+                break;
+
         }
+    }
+
+    private void startSearchActivity() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
 
     private void initToolbar() {

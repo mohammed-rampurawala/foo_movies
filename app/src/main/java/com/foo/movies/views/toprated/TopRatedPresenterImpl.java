@@ -24,10 +24,10 @@ public class TopRatedPresenterImpl<V extends ITopRatedMView> extends BasePresent
     }
 
     @Override
-    public void fetchPopularMovies(int page) {
+    public void fetchTopRatedMovies(int page) {
         getMvpView().showLoading();
         getCompositeDisposable().add(getController()
-                .getPopularMovies(page)
+                .getTopRatedMovies(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieMainResponse>() {

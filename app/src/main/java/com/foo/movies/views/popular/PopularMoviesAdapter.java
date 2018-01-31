@@ -3,7 +3,7 @@ package com.foo.movies.views.popular;
 import android.view.ViewGroup;
 
 import com.foo.movies.R;
-import com.foo.movies.data.model.MovieModel;
+import com.foo.movies.data.model.Movie;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseAdapter;
 import com.foo.movies.views.base.BaseMoviesViewHolder;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PopularMoviesAdapter extends BaseAdapter {
 
 
-    private ArrayList<MovieModel> moviesList = new ArrayList<>();
+    private ArrayList<Movie> moviesList = new ArrayList<>();
 
     public PopularMoviesAdapter(BaseActivity activity) {
         super(activity);
@@ -39,7 +39,7 @@ public class PopularMoviesAdapter extends BaseAdapter {
         return moviesList.size();
     }
 
-    public void addItems(ArrayList<MovieModel> results) {
+    public void addItems(ArrayList<Movie> results) {
         if (results == null || results.size() == 0) return;
 
         int firstPosition = moviesList.size() == 0 ? 0 : moviesList.size() - 1;

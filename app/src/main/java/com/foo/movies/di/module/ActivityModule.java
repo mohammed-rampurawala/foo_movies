@@ -12,6 +12,9 @@ import com.foo.movies.views.movies.MoviesPresenterImpl;
 import com.foo.movies.views.popular.IPopularPresenter;
 import com.foo.movies.views.popular.IPopularView;
 import com.foo.movies.views.popular.PopularPresenterImpl;
+import com.foo.movies.views.search.ISearchPresenter;
+import com.foo.movies.views.search.ISearchView;
+import com.foo.movies.views.search.SearchPresenterImpl;
 import com.foo.movies.views.splash.ISplashView;
 import com.foo.movies.views.splash.ISplashPresenter;
 import com.foo.movies.views.splash.SplashPresenterImpl;
@@ -75,6 +78,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     IPopularPresenter<IPopularView> providePopularPresenter(PopularPresenterImpl<IPopularView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    ISearchPresenter<ISearchView> provideSearchPresenter(SearchPresenterImpl<ISearchView> presenter) {
         return presenter;
     }
 }
