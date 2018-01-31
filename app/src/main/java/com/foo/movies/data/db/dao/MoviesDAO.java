@@ -24,7 +24,7 @@ public interface MoviesDAO {
     @Delete
     void delete(Movie movie);
 
-    @Query("SELECT * FROM movie WHERE title LIKE :first")
+    @Query("SELECT * FROM movie WHERE title LIKE :searchQuery")
     List<Movie> searchMovie(String searchQuery);
 
 }
