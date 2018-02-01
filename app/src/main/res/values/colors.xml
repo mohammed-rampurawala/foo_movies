@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="accent_translucent">#80FFEB3B</color>
-
+    <color name="detail_movie_header">#303F9F</color>
     <color name="black_effective">#2a2a2a</color>
+    <color name="detail_text">#727272</color>
 </resources>

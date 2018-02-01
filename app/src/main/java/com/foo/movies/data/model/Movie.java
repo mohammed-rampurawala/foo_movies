@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by mohammed.rampurawala on 1/24/2018.
  */
 
-@Entity(indices = {@Index(value = {"title"}), @Index(value = {"description"})})
+@Entity(indices = {@Index(value = {"title"}), @Index(value = {"overview"})})
 public class Movie {
     @PrimaryKey
     private int id;
@@ -52,6 +52,8 @@ public class Movie {
     @ColumnInfo(name = "release_date")
     private String releaseDate;
 
+    @ColumnInfo(name = "movie_type")
+    private int movieType;
 
     public int getVoteCount() {
         return voteCount;
@@ -155,5 +157,13 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public int getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(int movieType) {
+        this.movieType = movieType;
     }
 }

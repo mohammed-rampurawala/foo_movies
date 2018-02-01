@@ -5,4 +5,7 @@
     <string name="search">Search</string>
     <string name="error_message">Unable to process... Please try again later</string>
     <string name="empty_text">No Movies Present Currently</string>
+    <string name="no_movies_found">No Movies Found</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="reviews_title">Reviews</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
@@ -83,11 +84,22 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(RecyclerView.VERTICAL)) {
+                    mPresenter.loadNextPage();
+                }
+            }
+        });
     }
 
 
     @Override
-    public void refreshMovieList(ArrayList<Movie> results) {
+    public void refreshMovieList(ArrayList<? extends Movie> results) {
         if (mRecyclerView.getVisibility() == View.GONE) {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyTextView.setVisibility(View.GONE);

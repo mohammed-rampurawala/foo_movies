@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface ITopRatedMView extends MvpView {
-    void refreshMovieList(ArrayList<Movie> results);
+    void refreshMovieList(ArrayList<? extends Movie> results);
 
     void showEmptyView();
 }

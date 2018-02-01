@@ -13,8 +13,6 @@ public class MovieMainResponse {
 
     private int totalPages;
 
-    private ArrayList<Movie> results;
-
     public int getPage() {
         return page;
     }
@@ -39,11 +37,4 @@ public class MovieMainResponse {
         this.totalPages = totalPages;
     }
 
-    public ArrayList<Movie> getResults() {
-        return results;
-    }
-
-    public void setResults(ArrayList<Movie> results) {
-        this.results = results;
-    }
 }

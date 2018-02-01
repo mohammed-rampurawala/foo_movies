@@ -1,4 +1,4 @@
-package com.foo.movies.views.popular;
+package com.foo.movies.views.search;
 
 import android.view.ViewGroup;
 
@@ -7,6 +7,7 @@ import com.foo.movies.data.model.Movie;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseAdapter;
 import com.foo.movies.views.base.BaseMoviesViewHolder;
+import com.foo.movies.views.popular.PopularViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.List;
  * Created by mohammed.rampurawala on 1/30/2018.
  */
 
-public class PopularMoviesAdapter extends BaseAdapter {
+public class SearchMoviesAdapter extends BaseAdapter {
 
 
     private ArrayList<Movie> moviesList = new ArrayList<>();
 
-    public PopularMoviesAdapter(BaseActivity activity) {
+    public SearchMoviesAdapter(BaseActivity activity) {
         super(activity);
     }
 
@@ -40,11 +41,9 @@ public class PopularMoviesAdapter extends BaseAdapter {
         return moviesList.size();
     }
 
-    public void addItems(List<? extends Movie> results) {
-        if (results == null || results.size() == 0) return;
-
-        int firstPosition = moviesList.size() == 0 ? 0 : moviesList.size() - 1;
+    public void addItems(List<Movie> results) {
+        moviesList.clear();
         moviesList.addAll(results);
-        notifyItemRangeChanged(firstPosition, results.size());
+        notifyDataSetChanged();
     }
 }

@@ -8,4 +8,6 @@ import com.foo.movies.views.base.MvpPresenter;
 
 public interface ITopRatedPresenter<V extends ITopRatedMView> extends MvpPresenter<V> {
     void fetchTopRatedMovies(int page);
+
+    void loadNextPage();
 }

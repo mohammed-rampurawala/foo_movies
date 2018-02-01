@@ -4,6 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_8"
+    android:layout_marginLeft="@dimen/margin_8"
+    android:layout_marginRight="@dimen/margin_8"
     android:layout_marginTop="@dimen/margin_8"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp">

@@ -39,7 +39,7 @@ public class TopRatedMoviesAdapter extends BaseAdapter {
         return moviesList.size();
     }
 
-    public void addItems(ArrayList<Movie> results) {
+    public void addItems(ArrayList<? extends Movie> results) {
         if (results == null || results.size() == 0) return;
 
         int firstPosition = moviesList.size() == 0 ? 0 : moviesList.size() - 1;

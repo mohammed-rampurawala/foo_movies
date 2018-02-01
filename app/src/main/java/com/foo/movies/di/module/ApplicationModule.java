@@ -1,14 +1,18 @@
 package com.foo.movies.di.module;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.foo.movies.BuildConfig;
 import com.foo.movies.data.AppController;
 import com.foo.movies.data.Controller;
-import com.foo.movies.data.network.ApiHelper;
+import com.foo.movies.data.db.DatabaseHelper;
+import com.foo.movies.data.db.IDBHelper;
+import com.foo.movies.data.db.MoviesDatabase;
 import com.foo.movies.data.network.AppApiHelper;
-import com.foo.movies.data.network.MoviesApiService;
+import com.foo.movies.data.network.IApiHelper;
 import com.foo.movies.di.ApplicationContext;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -92,7 +96,19 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ApiHelper provideApiHelper(AppApiHelper appApiHelper) {
+    IApiHelper provideApiHelper(AppApiHelper appApiHelper) {
         return appApiHelper;
+    }
+
+    @Provides
+    @Singleton
+    IDBHelper provideDBHelper(DatabaseHelper databaseHelper) {
+        return databaseHelper;
+    }
+
+    @Provides
+    @Singleton
+    RoomDatabase provideDatabase() {
+        return Room.databaseBuilder(mApplication, MoviesDatabase.class, BuildConfig.DB_NAME).build();
     }
 }

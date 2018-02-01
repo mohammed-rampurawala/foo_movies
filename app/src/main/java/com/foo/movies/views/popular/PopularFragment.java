@@ -87,7 +87,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
 
 
     @Override
-    public void refreshMovieList(ArrayList<Movie> results) {
+    public void refreshMovieList(ArrayList<? extends Movie> results) {
         if (mRecyclerView.getVisibility() == View.GONE) {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyTextView.setVisibility(View.GONE);

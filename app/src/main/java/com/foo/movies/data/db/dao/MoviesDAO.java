@@ -3,13 +3,15 @@ package com.foo.movies.data.db.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.foo.movies.data.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -19,15 +21,14 @@ import io.reactivex.Observable;
 @Dao
 public interface MoviesDAO {
     @Query("SELECT * FROM movie")
-    List<Movie> getAll();
+    Flowable<List<Movie>> getAll();
 
-    @Insert
-    void insertAll(Movie... movies);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(ArrayList<? extends Movie> movies);
 
     @Delete
     void delete(Movie movie);
 
-    @Query("SELECT * FROM movie WHERE title LIKE :searchQuery")
-    Observable<List<Movie>> searchMovie(String searchQuery);
-
+    @Query("SELECT * FROM movie WHERE lower(title) LIKE :searchQuery OR lower(original_title) LIKE :searchQuery")
+    Flowable<List<Movie>> searchMovies(String searchQuery);
 }

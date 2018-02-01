@@ -32,8 +32,6 @@ public class FooMoviesApp extends Application {
         AppLogger.init();
 
         mApplicationComponent.inject(this);
-
-        MoviesDatabase database = Room.databaseBuilder(getApplicationContext(), MoviesDatabase.class, BuildConfig.DB_NAME).build();
     }
 
     public ApplicationComponent getApplicationComponent() {

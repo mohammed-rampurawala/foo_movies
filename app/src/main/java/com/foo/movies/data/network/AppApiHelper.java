@@ -3,6 +3,8 @@ package com.foo.movies.data.network;
 import com.foo.movies.BuildConfig;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.MovieMainResponse;
+import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.TopRatedMovieResponse;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,7 +17,7 @@ import retrofit2.Retrofit;
  */
 
 @Singleton
-public class AppApiHelper implements ApiHelper {
+public class AppApiHelper implements IApiHelper {
 
     private MoviesApiService moviesApiService;
 
@@ -30,17 +32,17 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<MovieMainResponse> getPopularMovies(int page) {
+    public Observable<PopularMovieResponse> getPopularMovies(int page) {
         return moviesApiService.getPopularMovies(BuildConfig.API_KEY, page);
     }
 
     @Override
-    public Observable<MovieMainResponse> getTopRatedMovies(int page) {
+    public Observable<TopRatedMovieResponse> getTopRatedMovies(int page) {
         return moviesApiService.getTopRatedMovies(BuildConfig.API_KEY, page);
     }
 
     @Override
-    public Observable<MovieMainResponse> getSearchedMovies(String searchedQuery) {
+    public Observable<TopRatedMovieResponse> getReviewsForMovie(long movieId) {
         return null;
     }
 
