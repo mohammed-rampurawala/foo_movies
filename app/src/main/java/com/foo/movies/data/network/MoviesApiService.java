@@ -34,7 +34,11 @@ public interface MoviesApiService {
                                                    @Query("page") int page,
                                                    @Query("include_adult") boolean includeAdult);
 
-    @GET("movie/{movieId}/reviews")
+    @GET("movie/{movieId}/videos")
     Observable<MovieMainResponse> getMovieReviews(@Query("api_key") String apiKey,
+                                                  @Path("movieId") long movieId);
+
+    @GET("{movieId}/reviews")
+    Observable<MovieMainResponse> getMovieTrailers(@Query("api_key") String apiKey,
                                                   @Path("movieId") long movieId);
 }

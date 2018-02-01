@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.di.component.ActivityComponent;
+import com.foo.movies.listener.ICallback;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
 
@@ -80,6 +81,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
     private void initAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getMoviesActivity(), getResources().getInteger(R.integer.span_count));
         mAdapter = new PopularMoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter.setOnItemClickListener((ICallback) getMoviesActivity());
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);

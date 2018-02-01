@@ -27,7 +27,7 @@ public class SearchMoviesAdapter extends BaseAdapter {
 
     @Override
     public BaseMoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PopularViewHolder(getInflater().inflate(R.layout.movies_item, parent, false));
+        return new PopularViewHolder(getInflater().inflate(R.layout.movies_item, parent, false),null);
     }
 
     @Override

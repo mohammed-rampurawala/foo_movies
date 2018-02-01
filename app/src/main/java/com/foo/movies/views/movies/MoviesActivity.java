@@ -1,18 +1,26 @@
 package com.foo.movies.views.movies;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.foo.movies.views.detail.DetailActivity;
 import com.foo.movies.R;
+import com.foo.movies.data.model.Movie;
+import com.foo.movies.listener.ICallback;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
 import com.foo.movies.views.popular.PopularFragment;
@@ -21,7 +29,7 @@ import com.foo.movies.views.toprated.TopRatedFragment;
 
 import javax.inject.Inject;
 
-public class MoviesActivity extends BaseActivity implements IMoviesView {
+public class MoviesActivity extends BaseActivity implements IMoviesView, ICallback {
     private DrawerLayout drawerLayout;
 
     @Inject
@@ -112,5 +120,34 @@ public class MoviesActivity extends BaseActivity implements IMoviesView {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(Movie movie, View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("movie", movie);
+
+        // Check if we're running on Android 5.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ImageView moviePoster = (ImageView) view.findViewById(R.id.movie_image);
+            TextView movieTitle = (TextView) view.findViewById(R.id.title);
+            Pair<View, String> p1 = Pair.create((View) moviePoster, "movie_poster");
+            Pair<View, String> p2 = Pair.create((View) movieTitle, "movie_title");
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(this, p1, p2);
+            startActivity(intent, options.toBundle());
+
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
