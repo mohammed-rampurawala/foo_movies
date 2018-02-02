@@ -17,6 +17,7 @@ import com.foo.movies.data.model.Trailer;
 import com.foo.movies.data.model.TrailerResponse;
 import com.foo.movies.data.network.IApiHelper;
 import com.foo.movies.di.ApplicationContext;
+import com.foo.movies.utils.CommonUtils;
 import com.foo.movies.utils.MoviesConstants;
 
 import java.util.ArrayList;
@@ -106,10 +107,17 @@ public class AppController implements Controller {
     }
 
     @Override
-    public Observable<ReviewResponse> getReviewsForMovie(long movieId) {
+    public Observable<ReviewResponse> getReviewsForMovie(final long movieId) {
+        if(!CommonUtils.isNetworkAvailable(mContext))
+        {
+            return mDBHelper.getMovieReviews(movieId);
+        }
         return mApiHelper.getReviewsForMovie(movieId).map(new Function<ReviewResponse, ReviewResponse>() {
             @Override
             public ReviewResponse apply(ReviewResponse reviewResponse) throws Exception {
+                for (Review review : reviewResponse.getResults()) {
+                    review.setMovieId(movieId);
+                }
                 insertReviews(reviewResponse.getResults());
                 return reviewResponse;
             }
@@ -117,14 +125,26 @@ public class AppController implements Controller {
     }
 
     @Override
-    public Observable<TrailerResponse> getMovieTrailers(long movieId) {
-        return mApiHelper.getMovieTrailers(movieId).map(new Function<TrailerResponse, TrailerResponse>() {
-            @Override
-            public TrailerResponse apply(TrailerResponse trailerResponse) throws Exception {
-                insertTrailers(trailerResponse.getResults());
-                return trailerResponse;
-            }
-        });
+    public Observable<TrailerResponse> getMovieTrailers(final long movieId) {
+        if (CommonUtils.isNetworkAvailable(mContext)) {
+            return mApiHelper.getMovieTrailers(movieId).map(new Function<TrailerResponse, TrailerResponse>() {
+                @Override
+                public TrailerResponse apply(TrailerResponse trailerResponse) throws Exception {
+                    for (Trailer trailer : trailerResponse.getResults()) {
+                        trailer.setMovieId(movieId);
+                    }
+                    insertTrailers(trailerResponse.getResults());
+                    return trailerResponse;
+                }
+            });
+        } else {
+            return mDBHelper.getMovieTrailers(movieId);
+        }
+    }
+
+    @Override
+    public Observable<ReviewResponse> getMovieReviews(long movieId) {
+        return null;
     }
 
     @Override

@@ -18,12 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:textAppearance="?android:textAppearanceMedium" />
+            android:justificationMode="inter_word"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/review_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
             android:paddingBottom="15dp"
             android:textAlignment="center"
             android:textColor="@color/detail_text" />

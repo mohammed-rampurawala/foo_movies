@@ -12,8 +12,12 @@ import com.bumptech.glide.Glide;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.listener.ICallback;
+import com.foo.movies.utils.AppLogger;
 import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseMoviesViewHolder;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,9 +59,13 @@ public class MoviesViewHolder extends BaseMoviesViewHolder {
     @Override
     public void bind(Movie movie) {
         this.movie = movie;
-        Glide.with(movieImage.getContext())
-                .load(baseUrl + movie.getPosterPath())
-                .transition(new GenericTransitionOptions<Drawable>())
-                .into(movieImage);
+        try {
+            Glide.with(movieImage.getContext())
+                    .load(new URL(baseUrl + movie.getPosterPath()))
+                    .transition(new GenericTransitionOptions<Drawable>())
+                    .into(movieImage);
+        } catch (MalformedURLException e) {
+            AppLogger.e(e,"Exception whle loading glide images");
+        }
     }
 }

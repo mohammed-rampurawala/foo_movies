@@ -3,12 +3,14 @@ package com.foo.movies.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class Trailer {
 
+    @NonNull
     @PrimaryKey
-    private long id;
+    private String id;
 
     @ColumnInfo(name = "key")
     private String key;
@@ -22,11 +24,15 @@ public class Trailer {
     @ColumnInfo(name = "type")
     private String type;
 
-    public long getId() {
+    @ColumnInfo(name = "movie_id")
+    private long movieId;
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,5 +66,13 @@ public class Trailer {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
+    }
+
+    public long getMovieId() {
+        return movieId;
     }
 }

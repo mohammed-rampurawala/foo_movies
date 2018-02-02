@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 
 @Dao
 public interface ReviewDAO {
-    @Query("SELECT * from review where id = :id")
+    @Query("SELECT * from review where movie_id = :id")
     Flowable<List<Review>> getReviewsById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

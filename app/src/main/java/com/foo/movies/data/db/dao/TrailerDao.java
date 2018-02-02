@@ -18,7 +18,7 @@ import io.reactivex.Flowable;
 
 @Dao
 public interface TrailerDao {
-    @Query("SELECT * from trailer where id = :id")
+    @Query("SELECT * from trailer where movie_id = :id")
     Flowable<List<Trailer>> getTrailerById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

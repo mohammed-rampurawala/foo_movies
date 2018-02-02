@@ -1,6 +1,7 @@
 package com.foo.movies.data.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohammed.rampurawala on 2/2/2018.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class TrailerResponse {
     private long id;
-    private ArrayList<Trailer> results;
+    private List<Trailer> results;
 
     public long getId() {
         return id;
@@ -18,11 +19,11 @@ public class TrailerResponse {
         this.id = id;
     }
 
-    public ArrayList<Trailer> getResults() {
+    public List<Trailer> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Trailer> results) {
+    public void setResults(List<Trailer> results) {
         this.results = results;
     }
 }

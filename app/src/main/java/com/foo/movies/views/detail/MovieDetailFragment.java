@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.data.model.Review;
 import com.foo.movies.data.model.Trailer;
-import com.foo.movies.utils.CommonUtils;
 import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseFragment;
 

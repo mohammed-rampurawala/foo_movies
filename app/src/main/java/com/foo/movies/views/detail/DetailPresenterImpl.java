@@ -4,6 +4,7 @@ import com.foo.movies.data.Controller;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.data.model.ReviewResponse;
 import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.TrailerResponse;
 import com.foo.movies.views.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -63,6 +64,22 @@ public class DetailPresenterImpl<V extends IDetailView> extends BasePresenter<V>
 
     @Override
     public void fetchTrailers() {
+        getCompositeDisposable().add(
+                getController()
+                        .getMovieTrailers(movie.getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<TrailerResponse>() {
+                            @Override
+                            public void accept(TrailerResponse trailerResponse) throws Exception {
+                                getMvpView().addTrailersToUI(trailerResponse.getResults());
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                getMvpView().showErrorMessage();
+                            }
+                        }));
     }
 
     @Override

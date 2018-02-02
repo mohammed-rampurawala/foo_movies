@@ -27,6 +27,9 @@ public class Review {
     @ColumnInfo(name = "url")
     private String url;
 
+    @ColumnInfo(name = "movie_id")
+    private long movieId;
+
     public String getId() {
         return id;
     }
@@ -58,4 +61,13 @@ public class Review {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
+    }
+
+    public long getMovieId() {
+        return movieId;
+    }
+
 }
