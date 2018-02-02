@@ -1,0 +1,16 @@
+{
+  "id": 347882,
+  "page": 1,
+  "results": [
+    {
+      "id": "59774e759251413ae6005744",
+      "author": "Gimly",
+      "content": "Almost everything that happens in _Sleight_ made me think \"Oh, this is just like where this happens in that other, better, movie\". But the fact that it's original IP overall is refreshing, and just because someone else did it **better**, doesn't mean _Sleight_ doesn't do it very well.\r\n\r\n_Final rating:★★★ - I liked it. Would personally recommend you give it a go._",
+      "url": "https://www.themoviedb.org/review/59774e759251413ae6005744"
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 1
+}
+
+// https://api.themoviedb.org/3/movie/347882/reviews?api_key=bbe2969c244694d5eb27b4bf8ff8dedc&language=en-US&page=1
