@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.di.component.ActivityComponent;
+import com.foo.movies.listener.ICallback;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
+import com.foo.movies.views.movies.MoviesAdapter;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
     @Inject
     ITopRatedPresenter<ITopRatedMView> mPresenter;
 
-    private TopRatedMoviesAdapter mAdapter;
+    private MoviesAdapter mAdapter;
 
     @BindView(R.id.movies_recyclerview)
     RecyclerView mRecyclerView;
@@ -80,7 +82,8 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
 
     private void initAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getMoviesActivity(), getResources().getInteger(R.integer.span_count));
-        mAdapter = new TopRatedMoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter = new MoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter.setOnItemClickListener((ICallback) getMoviesActivity());
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);

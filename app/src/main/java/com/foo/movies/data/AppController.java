@@ -3,15 +3,14 @@ package com.foo.movies.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.foo.movies.MoviesConstants;
 import com.foo.movies.data.db.IDBHelper;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.Movie;
-import com.foo.movies.data.model.MovieMainResponse;
 import com.foo.movies.data.model.PopularMovieResponse;
 import com.foo.movies.data.model.TopRatedMovieResponse;
 import com.foo.movies.data.network.IApiHelper;
 import com.foo.movies.di.ApplicationContext;
+import com.foo.movies.utils.MoviesConstants;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -21,21 +22,10 @@
             android:layout_width="@dimen/movie_thumbnail_width"
             android:layout_height="@dimen/movie_thumbnail_height"
             android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:transitionName="movie_poster" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:transitionName="movie_title" />
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/movie_poster_transition"
+            tools:targetApi="lollipop" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

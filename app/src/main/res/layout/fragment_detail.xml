@@ -6,7 +6,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/app_bar_height"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -14,21 +14,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/detail_movie_header"
-            app:expandedTitleMarginBottom="15dp"
-            app:expandedTitleMarginStart="34dp"
+            app:expandedTitleMarginBottom="@dimen/title_margin_bottom"
+            app:expandedTitleMarginStart="@dimen/title_margin_start"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerInside"
                 app:layout_collapseMode="parallax"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="@dimen/parallax_toolbar_height"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -64,6 +65,7 @@
                         android:layout_width="@dimen/movie_thumbnail_width"
                         android:layout_height="@dimen/movie_thumbnail_height"
                         android:layout_weight="2"
+                        android:adjustViewBounds="true"
                         android:padding="15dp"
                         android:transitionName="movie_poster" />
 

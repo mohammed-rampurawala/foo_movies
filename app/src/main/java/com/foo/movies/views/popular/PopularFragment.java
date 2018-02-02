@@ -16,6 +16,7 @@ import com.foo.movies.di.component.ActivityComponent;
 import com.foo.movies.listener.ICallback;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
+import com.foo.movies.views.movies.MoviesAdapter;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
     @Inject
     IPopularPresenter<IPopularView> mPresenter;
 
-    private PopularMoviesAdapter mAdapter;
+    private MoviesAdapter mAdapter;
 
     @BindView(R.id.movies_recyclerview)
     RecyclerView mRecyclerView;
@@ -80,11 +81,22 @@ public class PopularFragment extends BaseFragment implements IPopularView {
 
     private void initAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getMoviesActivity(), getResources().getInteger(R.integer.span_count));
-        mAdapter = new PopularMoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter = new MoviesAdapter((BaseActivity) getMoviesActivity());
         mAdapter.setOnItemClickListener((ICallback) getMoviesActivity());
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(RecyclerView.VERTICAL)) {
+                    mPresenter.loadNextPage();
+                }
+            }
+        });
     }
 
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,19 +14,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.foo.movies.MoviesConstants;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.data.model.Review;
 import com.foo.movies.data.model.Trailer;
 import com.foo.movies.utils.CommonUtils;
+import com.foo.movies.utils.MoviesConstants;
+import com.foo.movies.views.base.BaseFragment;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailActivityFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class DetailActivityFragment extends BaseFragment implements IDetailView {
 
     private Movie movie;
 
@@ -52,6 +54,9 @@ public class DetailActivityFragment extends Fragment implements AdapterView.OnIt
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @Inject
+    IDetailPresenter<IDetailView> presenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,13 +73,13 @@ public class DetailActivityFragment extends Fragment implements AdapterView.OnIt
             //TODO: Fetch trailers and reviews
         }
         initToolbar();
-        initUI(view);
+        initUI();
     }
 
-    private void initUI(View view) {
+    private void initUI() {
         Bundle arguments = getArguments();
         if (arguments != null) {
-            movie = getActivity().getIntent().getExtras().getParcelable("movie");
+            movie = arguments.getParcelable(MoviesConstants.MOVIE_KEY);
             toolbarLayout.setTitle(movie.getTitle());
 
             SharedPreferences sharedPreferences = getContext().getSharedPreferences(MoviesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
@@ -82,7 +87,7 @@ public class DetailActivityFragment extends Fragment implements AdapterView.OnIt
 
             Glide.with(this).load(baseUrl + movie.getBackdropPath()).into(headerImageView);
         }
-        setMovieData(movie, view);
+        setMovieData(movie);
     }
 
     private void initToolbar() {
@@ -91,7 +96,7 @@ public class DetailActivityFragment extends Fragment implements AdapterView.OnIt
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setMovieData(Movie movie, View view) {
+    private void setMovieData(Movie movie) {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(MoviesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
         String baseUrl = sharedPreferences.getString(MoviesConstants.POSTER_URL, "");
@@ -104,9 +109,7 @@ public class DetailActivityFragment extends Fragment implements AdapterView.OnIt
         }
 
         releaseDetail.setText(releaseDate);
-
-        movieRating.setText(String.format("%.1f", movie.getVoteAverage()) + "/10");
-
+        movieRating.setText(getString(R.string.vote_average, movie.getVoteAverage()));
         movieOverview.setText(movie.getOverview());
     }
 

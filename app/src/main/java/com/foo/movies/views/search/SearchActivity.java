@@ -1,7 +1,11 @@
 package com.foo.movies.views.search;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
+import com.foo.movies.listener.ICallback;
+import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseActivity;
-import com.foo.movies.views.popular.PopularMoviesAdapter;
+import com.foo.movies.views.detail.DetailActivity;
+import com.foo.movies.views.movies.MoviesAdapter;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.List;
@@ -25,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SearchActivity extends BaseActivity implements ISearchView {
+public class SearchActivity extends BaseActivity implements ISearchView, ICallback {
     private DrawerLayout drawerLayout;
 
     @Inject
@@ -45,7 +53,7 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     private Unbinder binder;
 
-    private SearchMoviesAdapter mAdapter;
+    private MoviesAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +91,8 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     private void initAdapter() {
         GridLayoutManager manager = new GridLayoutManager(getMoviesActivity(), getResources().getInteger(R.integer.span_count));
-        mAdapter = new SearchMoviesAdapter((BaseActivity) getMoviesActivity());
+        mAdapter = new SearchMovieAdapter((BaseActivity) getMoviesActivity());
+        mAdapter.setOnItemClickListener(this);
 
         moviesRecyclerView.setAdapter(mAdapter);
         moviesRecyclerView.setLayoutManager(manager);
@@ -116,5 +125,21 @@ public class SearchActivity extends BaseActivity implements ISearchView {
     protected void onDestroy() {
         super.onDestroy();
         binder.unbind();
+    }
+
+    @Override
+    public void onItemSelected(Movie movie, View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(MoviesConstants.MOVIE_KEY, movie);
+
+        // Check if we're running on Android 5.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ImageView moviePoster = (ImageView) view.findViewById(R.id.movie_image);
+            Pair<View, String> p1 = Pair.create((View) moviePoster, getString(R.string.movie_poster_transition));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1);
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 }

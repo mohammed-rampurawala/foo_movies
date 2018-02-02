@@ -8,4 +8,7 @@
     <string name="no_movies_found">No Movies Found</string>
     <string name="trailers_title">Trailers</string>
     <string name="reviews_title">Reviews</string>
+    <string name="vote_average">%.1f/10</string>
+    <string name="movie_poster_transition">movie_poster</string>
+    <string name="movie_title_transition">movie_title</string>
 </resources>

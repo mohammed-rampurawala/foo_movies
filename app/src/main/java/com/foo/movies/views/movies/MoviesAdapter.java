@@ -1,4 +1,4 @@
-package com.foo.movies.views.popular;
+package com.foo.movies.views.movies;
 
 import android.view.ViewGroup;
 
@@ -13,23 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mohammed.rampurawala on 1/30/2018.
+ * Created by mohammed.rampurawala on 2/2/2018.
  */
 
-public class PopularMoviesAdapter extends BaseAdapter {
+public class MoviesAdapter extends BaseAdapter {
 
-
-    private ArrayList<Movie> moviesList = new ArrayList<>();
+    protected ArrayList<Movie> moviesList = new ArrayList<>();
 
     private ICallback callback;
 
-    public PopularMoviesAdapter(BaseActivity activity) {
+    public MoviesAdapter(BaseActivity activity) {
         super(activity);
     }
 
     @Override
     public BaseMoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PopularViewHolder(getInflater().inflate(R.layout.movies_item, parent, false), callback);
+        return new MoviesViewHolder(getInflater().inflate(R.layout.movies_item, parent, false), callback);
     }
 
     @Override

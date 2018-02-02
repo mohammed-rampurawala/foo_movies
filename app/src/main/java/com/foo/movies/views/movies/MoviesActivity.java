@@ -17,12 +17,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.foo.movies.views.detail.DetailActivity;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.listener.ICallback;
+import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
+import com.foo.movies.views.detail.DetailActivity;
 import com.foo.movies.views.popular.PopularFragment;
 import com.foo.movies.views.search.SearchActivity;
 import com.foo.movies.views.toprated.TopRatedFragment;
@@ -125,16 +126,13 @@ public class MoviesActivity extends BaseActivity implements IMoviesView, ICallba
     @Override
     public void onItemSelected(Movie movie, View view) {
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("movie", movie);
+        intent.putExtra(MoviesConstants.MOVIE_KEY, movie);
 
         // Check if we're running on Android 5.0 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ImageView moviePoster = (ImageView) view.findViewById(R.id.movie_image);
-            TextView movieTitle = (TextView) view.findViewById(R.id.title);
-            Pair<View, String> p1 = Pair.create((View) moviePoster, "movie_poster");
-            Pair<View, String> p2 = Pair.create((View) movieTitle, "movie_title");
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(this, p1, p2);
+            Pair<View, String> p1 = Pair.create((View) moviePoster, getString(R.string.movie_poster_transition));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1);
             startActivity(intent, options.toBundle());
 
         } else {

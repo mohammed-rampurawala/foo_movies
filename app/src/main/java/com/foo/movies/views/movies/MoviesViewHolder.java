@@ -1,16 +1,18 @@
-package com.foo.movies.views.popular;
+package com.foo.movies.views.movies;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
-import com.foo.movies.MoviesConstants;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.listener.ICallback;
+import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseMoviesViewHolder;
 
 import butterknife.BindView;
@@ -18,11 +20,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by mohammed.rampurawala on 1/31/2018.
+ * Created by mohammed.rampurawala on 2/2/2018.
  */
 
-public class PopularViewHolder extends BaseMoviesViewHolder {
-
+public class MoviesViewHolder extends BaseMoviesViewHolder {
     private final String baseUrl;
 
     private final ICallback callback;
@@ -32,14 +33,10 @@ public class PopularViewHolder extends BaseMoviesViewHolder {
     @BindView(R.id.movie_image)
     ImageView movieImage;
 
-    @BindView(R.id.title)
-    TextView movieTitle;
-
-
     private Movie movie;
 
 
-    public PopularViewHolder(View itemView, ICallback callback) {
+    public MoviesViewHolder(View itemView, ICallback callback) {
         super(itemView);
         this.itemView = itemView;
         this.callback = callback;
@@ -60,7 +57,7 @@ public class PopularViewHolder extends BaseMoviesViewHolder {
         this.movie = movie;
         Glide.with(movieImage.getContext())
                 .load(baseUrl + movie.getPosterPath())
+                .transition(new GenericTransitionOptions<Drawable>())
                 .into(movieImage);
-        movieTitle.setText(movie.getTitle());
     }
 }

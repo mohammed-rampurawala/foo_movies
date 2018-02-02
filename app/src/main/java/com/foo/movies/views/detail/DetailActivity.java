@@ -14,7 +14,7 @@ public class DetailActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
-            bundle.putBundle("movie", getIntent().getExtras());
+            bundle.putAll(getIntent().getExtras());
             DetailActivityFragment detailActivityFragment = new DetailActivityFragment();
             detailActivityFragment.setArguments(bundle);
 
