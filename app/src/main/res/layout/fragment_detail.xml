@@ -127,7 +127,7 @@
                     android:padding="15dp">
 
                     <TextView
-                        android:id="@+id/trailers_title"
+                        android:id="@+id/trailersTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="15dp"
@@ -138,7 +138,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/list_item_trailers"
+                        android:id="@+id/listItemTrailer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
@@ -152,7 +152,7 @@
                     android:padding="15dp">
 
                     <TextView
-                        android:id="@+id/reviews_title"
+                        android:id="@+id/reviewsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="15dp"
@@ -162,7 +162,7 @@
                         android:visibility="gone" />
 
                     <LinearLayout
-                        android:id="@+id/list_item_reviews"
+                        android:id="@+id/listItemReviews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"></LinearLayout>

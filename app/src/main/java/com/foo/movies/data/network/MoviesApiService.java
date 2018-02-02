@@ -3,7 +3,9 @@ package com.foo.movies.data.network;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.MovieMainResponse;
 import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.ReviewResponse;
 import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.TrailerResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -34,11 +36,11 @@ public interface MoviesApiService {
                                                    @Query("page") int page,
                                                    @Query("include_adult") boolean includeAdult);
 
-    @GET("movie/{movieId}/videos")
-    Observable<MovieMainResponse> getMovieReviews(@Query("api_key") String apiKey,
-                                                  @Path("movieId") long movieId);
+    @GET("movie/{movieId}/reviews")
+    Observable<ReviewResponse> getMovieReviews(@Path("movieId") long movieId,
+                                               @Query("api_key") String apiKey);
 
-    @GET("{movieId}/reviews")
-    Observable<MovieMainResponse> getMovieTrailers(@Query("api_key") String apiKey,
-                                                  @Path("movieId") long movieId);
+    @GET("movie/{movieId}/videos")
+    Observable<TrailerResponse> getMovieTrailers(@Path("movieId") long movieId,
+                                                 @Query("api_key") String apiKey);
 }

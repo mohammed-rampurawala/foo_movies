@@ -15,11 +15,11 @@ public class DetailActivity extends BaseActivity {
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
             bundle.putAll(getIntent().getExtras());
-            DetailActivityFragment detailActivityFragment = new DetailActivityFragment();
-            detailActivityFragment.setArguments(bundle);
+            MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
+            movieDetailFragment.setArguments(bundle);
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.movie_detail_container, detailActivityFragment)
+                    .add(R.id.movie_detail_container, movieDetailFragment)
                     .commit();
         }
     }

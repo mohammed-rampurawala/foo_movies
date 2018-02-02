@@ -4,7 +4,9 @@ import com.foo.movies.BuildConfig;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.MovieMainResponse;
 import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.ReviewResponse;
 import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.TrailerResponse;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -42,8 +44,13 @@ public class AppApiHelper implements IApiHelper {
     }
 
     @Override
-    public Observable<TopRatedMovieResponse> getReviewsForMovie(long movieId) {
-        return null;
+    public Observable<ReviewResponse> getReviewsForMovie(long movieId) {
+        return moviesApiService.getMovieReviews(movieId,BuildConfig.API_KEY);
+    }
+
+    @Override
+    public Observable<TrailerResponse> getMovieTrailers(long movieId) {
+        return moviesApiService.getMovieTrailers(movieId,BuildConfig.API_KEY);
     }
 
 }

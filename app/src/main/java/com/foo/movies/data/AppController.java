@@ -1,13 +1,20 @@
 package com.foo.movies.data;
 
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.foo.movies.BuildConfig;
 import com.foo.movies.data.db.IDBHelper;
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.Review;
+import com.foo.movies.data.model.ReviewResponse;
 import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.Trailer;
+import com.foo.movies.data.model.TrailerResponse;
 import com.foo.movies.data.network.IApiHelper;
 import com.foo.movies.di.ApplicationContext;
 import com.foo.movies.utils.MoviesConstants;
@@ -99,8 +106,25 @@ public class AppController implements Controller {
     }
 
     @Override
-    public Observable<TopRatedMovieResponse> getReviewsForMovie(long movieId) {
-        return mApiHelper.getReviewsForMovie(movieId);
+    public Observable<ReviewResponse> getReviewsForMovie(long movieId) {
+        return mApiHelper.getReviewsForMovie(movieId).map(new Function<ReviewResponse, ReviewResponse>() {
+            @Override
+            public ReviewResponse apply(ReviewResponse reviewResponse) throws Exception {
+                insertReviews(reviewResponse.getResults());
+                return reviewResponse;
+            }
+        });
+    }
+
+    @Override
+    public Observable<TrailerResponse> getMovieTrailers(long movieId) {
+        return mApiHelper.getMovieTrailers(movieId).map(new Function<TrailerResponse, TrailerResponse>() {
+            @Override
+            public TrailerResponse apply(TrailerResponse trailerResponse) throws Exception {
+                insertTrailers(trailerResponse.getResults());
+                return trailerResponse;
+            }
+        });
     }
 
     @Override
@@ -111,5 +135,15 @@ public class AppController implements Controller {
     @Override
     public void insertMovies(ArrayList<? extends Movie> movies) {
         mDBHelper.insertMovies(movies);
+    }
+
+    @Override
+    public void insertTrailers(List<Trailer> trailers) {
+        mDBHelper.insertTrailers(trailers);
+    }
+
+    @Override
+    public void insertReviews(List<Review> reviews) {
+        mDBHelper.insertReviews(reviews);
     }
 }
