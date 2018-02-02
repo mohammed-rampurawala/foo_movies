@@ -1,0 +1,27 @@
+{
+  "id": 347882,
+  "results": [
+    {
+      "id": "58f139e5c3a3681a6c003d4d",
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "key": "mafJGrKvMIg",
+      "name": "Official Trailer",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Trailer"
+    },
+    {
+      "id": "58f13a419251415515004253",
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "key": "lVAwc1Ll7t4",
+      "name": "\"Genre-bending\" TV Spot",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Clip"
+    }
+  ]
+}
+
+// https://api.themoviedb.org/3/movie/347882/videos?api_key=bbe2969c244694d5eb27b4bf8ff8dedc&language=en-US
