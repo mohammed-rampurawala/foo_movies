@@ -3,6 +3,7 @@ package com.foo.movies;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
+import com.crashlytics.android.Crashlytics;
 import com.foo.movies.data.Controller;
 import com.foo.movies.data.db.MoviesDatabase;
 import com.foo.movies.di.component.ApplicationComponent;
@@ -26,6 +27,8 @@ public class FooMoviesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Crash Test
+//        Crashlytics.getInstance().crash();
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();

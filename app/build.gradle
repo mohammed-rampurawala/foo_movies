@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply from: '../quality/findbugs.gradle'
 
 android {
@@ -21,7 +22,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -73,7 +74,15 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
 
 
+    //Crashlytics dependency
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true
+    }
+    compile "com.google.firebase:firebase-core:$rootProject.firebaseCoreVersion"
+
+
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
 }
+apply plugin: 'com.google.gms.google-services'
