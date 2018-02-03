@@ -11,4 +11,7 @@
     <string name="vote_average">%.1f/10</string>
     <string name="movie_poster_transition">movie_poster</string>
     <string name="movie_title_transition">movie_title</string>
+    <string name="no_reviews">No Review</string>
+    <string name="no_trailers">No Trailers</string>
+    <string name="header_text">Welcome to Foo Movies</string>
 </resources>

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.listener.ICallback;
+import com.foo.movies.utils.AppLogger;
 import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseActivity;
 import com.foo.movies.views.base.BaseFragment;
@@ -27,6 +28,8 @@ import com.foo.movies.views.detail.DetailActivity;
 import com.foo.movies.views.popular.PopularFragment;
 import com.foo.movies.views.search.SearchActivity;
 import com.foo.movies.views.toprated.TopRatedFragment;
+
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -91,6 +94,9 @@ public class MoviesActivity extends BaseActivity implements IMoviesView, ICallba
             case R.id.drawer_search:
                 startSearchActivity();
                 menuItem.setChecked(false);
+                break;
+            default:
+                AppLogger.d("No Menu item found for fragment change");
                 break;
 
         }

@@ -57,7 +57,7 @@ public class TopRatedFragment extends BaseFragment implements ITopRatedMView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.top_rated_fragment, container, false);
+        View view = inflater.inflate(R.layout.movie_container, container, false);
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);

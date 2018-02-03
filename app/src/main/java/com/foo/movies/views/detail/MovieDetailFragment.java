@@ -7,12 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +23,7 @@ import com.foo.movies.R;
 import com.foo.movies.data.model.Movie;
 import com.foo.movies.data.model.Review;
 import com.foo.movies.data.model.Trailer;
+import com.foo.movies.listener.ITrailerClickListener;
 import com.foo.movies.utils.MoviesConstants;
 import com.foo.movies.views.base.BaseFragment;
 
@@ -30,7 +34,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailFragment extends BaseFragment implements IDetailView {
+public class MovieDetailFragment extends BaseFragment implements IDetailView, ITrailerClickListener {
 
     @BindView(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout toolbarLayout;
@@ -50,20 +54,24 @@ public class MovieDetailFragment extends BaseFragment implements IDetailView {
     @BindView(R.id.movieOverView)
     TextView movieOverview;
 
-    @BindView(R.id.reviewsTitle)
-    TextView reviewsTitle;
+    @BindView(R.id.no_trailers)
+    TextView noTrailers;
 
-    @BindView(R.id.trailersTitle)
-    TextView trailerTitle;
+    @BindView(R.id.no_reviews)
+    TextView noReviews;
 
-    @BindView(R.id.listItemReviews)
-    LinearLayout reviewsContainer;
+    @BindView(R.id.reviewsRecyclerView)
+    RecyclerView reviewsContainer;
 
-    @BindView(R.id.listItemTrailer)
-    LinearLayout trailerContainer;
+    @BindView(R.id.trailerRecyclerView)
+    RecyclerView trailerContainer;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    TrailersAdapter trailersAdapter;
+
+    ReviewsAdapter reviewsAdapter;
 
     @Inject
     IDetailPresenter<IDetailView> presenter;
@@ -81,15 +89,42 @@ public class MovieDetailFragment extends BaseFragment implements IDetailView {
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         presenter.setMovie((Movie) getArguments().getParcelable(MoviesConstants.MOVIE_KEY));
+        init();
         initToolbar();
         setMovieData();
+    }
+
+    private void init() {
+        trailersAdapter = new TrailersAdapter(getMoviesActivity(), this);
+        LinearLayoutManager manager = new LinearLayoutManager(getMoviesActivity(), RecyclerView.HORIZONTAL, false);
+        trailerContainer.setLayoutManager(manager);
+        trailerContainer.setAdapter(trailersAdapter);
+        trailerContainer.setItemAnimator(new DefaultItemAnimator());
+        trailerContainer.setNestedScrollingEnabled(false);
+
+
+        reviewsAdapter = new ReviewsAdapter(getMoviesActivity());
+        LinearLayoutManager reviewsManager = new LinearLayoutManager(getMoviesActivity(), RecyclerView.VERTICAL, false);
+        reviewsContainer.setLayoutManager(reviewsManager);
+        reviewsContainer.setAdapter(reviewsAdapter);
+        reviewsContainer.setItemAnimator(new DefaultItemAnimator());
+        reviewsContainer.setNestedScrollingEnabled(false);
+
+
     }
 
     private void initToolbar() {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getMoviesActivity().finish();
+            }
+        });
     }
+
 
     private void setMovieData() {
         presenter.fetchTrailers();
@@ -115,35 +150,27 @@ public class MovieDetailFragment extends BaseFragment implements IDetailView {
 
     @Override
     public void addReviewsToUI(List<Review> reviews) {
-        if (isAdded()) {
-            reviewsTitle.setVisibility(View.VISIBLE);
-            ReviewsAdapter mReviewsAdapter = new ReviewsAdapter(getMoviesActivity(), reviews);
-            for (int i = 0; i < mReviewsAdapter.getCount(); i++) {
-                View view = mReviewsAdapter.getView(i, null, null);
-                reviewsContainer.addView(view);
-            }
+        if (isAdded() && reviews.size() != 0) {
+            reviewsContainer.setVisibility(View.VISIBLE);
+            reviewsAdapter.setReviewList(reviews);
+            noReviews.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void addTrailersToUI(final List<Trailer> trailers) {
-        if (isAdded()) {
-            trailerTitle.setVisibility(View.VISIBLE);
-            TrailersAdapter mTrailersAdapter = new TrailersAdapter(getActivity(), trailers);
-            for (int i = 0; i < mTrailersAdapter.getCount(); i++) {
-                View view = mTrailersAdapter.getView(i, null, null);
-                final int finalI = i;
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String youtubeLink = "https://www.youtube.com/watch?v=" + trailers.get(finalI).getKey();
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                        startActivity(intent);
-                    }
-                });
-                trailerContainer.addView(view);
-            }
+        if (isAdded() && trailers.size() != 0) {
+            trailerContainer.setVisibility(View.VISIBLE);
+            trailersAdapter.setTrailers(trailers);
+            noTrailers.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onTrailerClicked(String trailerKey) {
+        String youtubeLink = "https://www.youtube.com/watch?v=" + trailerKey;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        startActivity(intent);
     }
 }

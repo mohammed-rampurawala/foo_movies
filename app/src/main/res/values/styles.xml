@@ -5,7 +5,11 @@
 
 
     <style name="SplashTheme" parent="BaseTheme">
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -15,11 +19,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
     <style name="ToolbarTheme" parent="Widget.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 

@@ -1,6 +1,7 @@
 package com.foo.movies.views.detail;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,46 +20,49 @@ import butterknife.ButterKnife;
 /**
  * Created by mohammed.rampurawala on 2/2/2018.
  */
-public class ReviewsAdapter extends ArrayAdapter<Review> {
+public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
 
-    public ReviewsAdapter(Context context, List<Review> reviews) {
-        super(context, R.layout.list_item_reviews, reviews);
+    private List<Review> reviewList;
+
+    public ReviewsAdapter(Context context) {
         inflater = LayoutInflater.from(context);
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Review review = getItem(position);
-
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_item_reviews, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        viewHolder.reviewAuthor.setText(review.getAuthor());
-        viewHolder.reviewAuthor.setContentDescription(review.getAuthor());
-
-        viewHolder.reviewContent.setText(review.getContent());
-        viewHolder.reviewContent.setContentDescription(review.getContent());
-        return convertView;
-
+    public void setReviewList(List<Review> reviewList){
+        this.reviewList = reviewList;
+        notifyDataSetChanged();
     }
 
-    static class ViewHolder {
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(inflater.inflate(R.layout.list_item_reviews,null));
+    }
 
-        @BindView(R.id.review_content)
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Review review = reviewList.get(position);
+        holder.reviewAuthor.setText(review.getAuthor());
+        holder.reviewContent.setText(review.getContent());
+    }
+
+    @Override
+    public int getItemCount() {
+        return reviewList==null?0:reviewList.size();
+    }
+
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.review_description)
         TextView reviewContent;
 
-        @BindView(R.id.review_author)
+        @BindView(R.id.review_title)
         TextView reviewAuthor;
 
         public ViewHolder(View itemView) {
+            super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }

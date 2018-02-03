@@ -3,6 +3,7 @@ package com.foo.movies.views.popular;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.top_rated_fragment, container, false);
+        View view = inflater.inflate(R.layout.movie_container, container, false);
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
@@ -86,6 +87,7 @@ public class PopularFragment extends BaseFragment implements IPopularView {
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

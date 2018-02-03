@@ -21,20 +21,11 @@
             android:layout_height="wrap_content" />
     </FrameLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/movies_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_container" />
 
-    <TextView
-        android:id="@+id/empty_view_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/no_movies_found"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="@dimen/empty_text_size"
-        android:visibility="gone" />
+    <include
+        android:layout_below="@id/toolbar_container"
+        layout="@layout/movie_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
