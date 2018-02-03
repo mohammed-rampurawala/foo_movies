@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-25-alpha
+    environment:
+       TERM: dumb
+       JVM_OPTS: -Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
+    steps:
+      - checkout
+      - restore_cache:
+          key:  fooMovies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - run:
+          name: Setup environment
+          command: |
+            sudo chmod +x gradlew
+            ./gradlew androidDependencies
+      - run:
+          name: Assemble Debug
+          command: ./gradlew --no-daemon --stacktrace assembleDebug
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: fooMovies-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - store_artifacts:
+          path: app/build/outputs/apk
+          destination: apk
