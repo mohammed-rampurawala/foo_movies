@@ -9,4 +9,5 @@ import com.foo.movies.views.base.MvpPresenter;
 
 @PerActivity
 public interface ISearchPresenter<V extends ISearchView> extends MvpPresenter<V> {
+    void getMovies(String query);
 }

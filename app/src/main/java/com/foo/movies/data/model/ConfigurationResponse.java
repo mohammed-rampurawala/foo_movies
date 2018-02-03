@@ -18,7 +18,7 @@ public class ConfigurationResponse {
         this.images = images;
     }
 
-    public class Images{
+    public static class Images{
         private String baseUrl;
 
         private String secureBaseUrl;

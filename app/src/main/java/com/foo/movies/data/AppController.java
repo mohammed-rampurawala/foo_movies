@@ -1,17 +1,32 @@
 package com.foo.movies.data;
 
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.foo.movies.MoviesConstants;
+import com.foo.movies.BuildConfig;
+import com.foo.movies.data.db.IDBHelper;
 import com.foo.movies.data.model.ConfigurationResponse;
-import com.foo.movies.data.model.MovieMainResponse;
-import com.foo.movies.data.network.ApiHelper;
+import com.foo.movies.data.model.Movie;
+import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.Review;
+import com.foo.movies.data.model.ReviewResponse;
+import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.Trailer;
+import com.foo.movies.data.model.TrailerResponse;
+import com.foo.movies.data.network.IApiHelper;
 import com.foo.movies.di.ApplicationContext;
+import com.foo.movies.utils.CommonUtils;
+import com.foo.movies.utils.MoviesConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
@@ -34,12 +49,18 @@ public class AppController implements Controller {
     /**
      * API Helper for network calls
      */
-    private final ApiHelper mApiHelper;
+    private final IApiHelper mApiHelper;
+
+    /**
+     * API Helper for database calls
+     */
+    private final IDBHelper mDBHelper;
 
     @Inject
-    public AppController(@ApplicationContext Context context, ApiHelper apiHelper) {
+    public AppController(@ApplicationContext Context context, IApiHelper apiHelper, IDBHelper dbHelper) {
         mContext = context;
         mApiHelper = apiHelper;
+        mDBHelper = dbHelper;
     }
 
     @Override
@@ -64,18 +85,85 @@ public class AppController implements Controller {
     }
 
     @Override
-    public Observable<MovieMainResponse> getPopularMovies(int page) {
-        return mApiHelper.getPopularMovies(page);
+    public Observable<PopularMovieResponse> getPopularMovies(int page) {
+        return mApiHelper.getPopularMovies(page).map(new Function<PopularMovieResponse, PopularMovieResponse>() {
+            @Override
+            public PopularMovieResponse apply(PopularMovieResponse movieMainResponse) throws Exception {
+                insertMovies(movieMainResponse.getResults());
+                return movieMainResponse;
+            }
+        });
     }
 
     @Override
-    public Observable<MovieMainResponse> getTopRatedMovies(int page) {
-        return mApiHelper.getTopRatedMovies(page);
+    public Observable<TopRatedMovieResponse> getTopRatedMovies(int page) {
+        return mApiHelper.getTopRatedMovies(page).map(new Function<TopRatedMovieResponse, TopRatedMovieResponse>() {
+            @Override
+            public TopRatedMovieResponse apply(TopRatedMovieResponse movieMainResponse) throws Exception {
+                insertMovies(movieMainResponse.getResults());
+                return movieMainResponse;
+            }
+        });
     }
 
     @Override
-    public Observable<MovieMainResponse> getSearchedMovies(String searchedQuery) {
+    public Observable<ReviewResponse> getReviewsForMovie(final long movieId) {
+        if(!CommonUtils.isNetworkAvailable(mContext))
+        {
+            return mDBHelper.getMovieReviews(movieId);
+        }
+        return mApiHelper.getReviewsForMovie(movieId).map(new Function<ReviewResponse, ReviewResponse>() {
+            @Override
+            public ReviewResponse apply(ReviewResponse reviewResponse) throws Exception {
+                for (Review review : reviewResponse.getResults()) {
+                    review.setMovieId(movieId);
+                }
+                insertReviews(reviewResponse.getResults());
+                return reviewResponse;
+            }
+        });
+    }
+
+    @Override
+    public Observable<TrailerResponse> getMovieTrailers(final long movieId) {
+        if (CommonUtils.isNetworkAvailable(mContext)) {
+            return mApiHelper.getMovieTrailers(movieId).map(new Function<TrailerResponse, TrailerResponse>() {
+                @Override
+                public TrailerResponse apply(TrailerResponse trailerResponse) throws Exception {
+                    for (Trailer trailer : trailerResponse.getResults()) {
+                        trailer.setMovieId(movieId);
+                    }
+                    insertTrailers(trailerResponse.getResults());
+                    return trailerResponse;
+                }
+            });
+        } else {
+            return mDBHelper.getMovieTrailers(movieId);
+        }
+    }
+
+    @Override
+    public Observable<ReviewResponse> getMovieReviews(long movieId) {
         return null;
     }
 
+    @Override
+    public Flowable<List<Movie>> getSearchMovies(String query) {
+        return mDBHelper.getSearchMovies(query);
+    }
+
+    @Override
+    public void insertMovies(ArrayList<? extends Movie> movies) {
+        mDBHelper.insertMovies(movies);
+    }
+
+    @Override
+    public void insertTrailers(List<Trailer> trailers) {
+        mDBHelper.insertTrailers(trailers);
+    }
+
+    @Override
+    public void insertReviews(List<Review> reviews) {
+        mDBHelper.insertReviews(reviews);
+    }
 }

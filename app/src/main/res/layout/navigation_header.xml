@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:text="@string/header_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/padding_10"
+        android:textStyle="bold"
+        style="?android:textAppearanceLarge"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

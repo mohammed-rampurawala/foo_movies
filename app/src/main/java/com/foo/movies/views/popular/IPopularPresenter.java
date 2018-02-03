@@ -8,4 +8,6 @@ import com.foo.movies.views.base.MvpPresenter;
 
 public interface IPopularPresenter<V extends IPopularView> extends MvpPresenter<V> {
     void fetchPopularMovies(int page);
+
+    void loadNextPage();
 }

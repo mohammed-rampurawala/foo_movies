@@ -5,4 +5,13 @@
     <string name="search">Search</string>
     <string name="error_message">Unable to process... Please try again later</string>
     <string name="empty_text">No Movies Present Currently</string>
+    <string name="no_movies_found">No Movies Found</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="reviews_title">Reviews</string>
+    <string name="vote_average">%.1f/10</string>
+    <string name="movie_poster_transition">movie_poster</string>
+    <string name="movie_title_transition">movie_title</string>
+    <string name="no_reviews">No Review</string>
+    <string name="no_trailers">No Trailers</string>
+    <string name="header_text">Welcome to Foo Movies</string>
 </resources>

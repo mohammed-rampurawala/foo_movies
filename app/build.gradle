@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: '../quality/findbugs.gradle'
 
 android {
     compileSdkVersion 27
@@ -11,6 +12,12 @@ android {
         buildConfigField 'String','API_KEY',"$rootProject.moviesDBApiKey"
         buildConfigField 'String','BASE_URL',"$rootProject.baseUrl"
         buildConfigField 'String','DB_NAME','"movies_db"'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {

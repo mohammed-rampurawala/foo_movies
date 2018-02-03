@@ -3,6 +3,7 @@ package com.foo.movies.di.component;
 
 import com.foo.movies.di.PerActivity;
 import com.foo.movies.di.module.ActivityModule;
+import com.foo.movies.views.detail.MovieDetailFragment;
 import com.foo.movies.views.movies.MoviesActivity;
 import com.foo.movies.views.popular.PopularFragment;
 import com.foo.movies.views.search.SearchActivity;
@@ -27,4 +28,6 @@ public interface ActivityComponent {
     void inject(MoviesActivity moviesActivity);
 
     void inject(TopRatedFragment topRatedFragment);
+
+    void inject(MovieDetailFragment movieDetailFragment);
 }

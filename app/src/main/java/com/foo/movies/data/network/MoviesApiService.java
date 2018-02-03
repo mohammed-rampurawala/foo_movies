@@ -2,9 +2,14 @@ package com.foo.movies.data.network;
 
 import com.foo.movies.data.model.ConfigurationResponse;
 import com.foo.movies.data.model.MovieMainResponse;
+import com.foo.movies.data.model.PopularMovieResponse;
+import com.foo.movies.data.model.ReviewResponse;
+import com.foo.movies.data.model.TopRatedMovieResponse;
+import com.foo.movies.data.model.TrailerResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -17,12 +22,12 @@ public interface MoviesApiService {
 
 
     @GET("movie/popular?language='en-US'")
-    Observable<MovieMainResponse> getPopularMovies(@Query("api_key") String apiKey,
-                                                   @Query("page") int page);
+    Observable<PopularMovieResponse> getPopularMovies(@Query("api_key") String apiKey,
+                                                      @Query("page") int page);
 
     @GET("movie/top_rated?language='en-US'")
-    Observable<MovieMainResponse> getTopRatedMovies(@Query("api_key") String apiKey,
-                                                    @Query("page") int page);
+    Observable<TopRatedMovieResponse> getTopRatedMovies(@Query("api_key") String apiKey,
+                                                        @Query("page") int page);
 
     @GET("search/movie")
     Observable<MovieMainResponse> getSearchKeyword(@Query("api_key") String apiKey,
@@ -30,4 +35,12 @@ public interface MoviesApiService {
                                                    @Query("query") String keyword,
                                                    @Query("page") int page,
                                                    @Query("include_adult") boolean includeAdult);
+
+    @GET("movie/{movieId}/reviews")
+    Observable<ReviewResponse> getMovieReviews(@Path("movieId") long movieId,
+                                               @Query("api_key") String apiKey);
+
+    @GET("movie/{movieId}/videos")
+    Observable<TrailerResponse> getMovieTrailers(@Path("movieId") long movieId,
+                                                 @Query("api_key") String apiKey);
 }

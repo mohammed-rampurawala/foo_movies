@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.foo.movies.di.ActivityContext;
 import com.foo.movies.di.PerActivity;
+import com.foo.movies.views.detail.DetailPresenterImpl;
+import com.foo.movies.views.detail.IDetailPresenter;
+import com.foo.movies.views.detail.IDetailView;
 import com.foo.movies.views.movies.IMoviePresenter;
 import com.foo.movies.views.movies.IMoviesView;
 import com.foo.movies.views.movies.MoviesPresenterImpl;
@@ -84,6 +87,12 @@ public class ActivityModule {
     @Provides
     @PerActivity
     ISearchPresenter<ISearchView> provideSearchPresenter(SearchPresenterImpl<ISearchView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    IDetailPresenter<IDetailView> provideDetailPresenter(DetailPresenterImpl<IDetailView> presenter) {
         return presenter;
     }
 }
