@@ -4,30 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    app:cardUseCompatPadding="true"
     android:orientation="vertical"
     app:cardCornerRadius="3dp"
+    app:cardUseCompatPadding="true"
     app:elevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="@dimen/padding_5">
 
         <TextView
             android:id="@+id/review_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:background="@android:color/darker_gray" />
 
         <TextView
@@ -36,6 +36,6 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:textColor="@android:color/black"
-            android:textSize="13sp" />
+            android:textSize="@dimen/title_text_size" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

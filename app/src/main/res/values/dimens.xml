@@ -19,4 +19,10 @@
 
     <dimen name="nav_drawer_width">304dp</dimen>
     <dimen name="navDrawer_header_height">170dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="header_textsize">25sp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="youtube_image_width">30dp</dimen>
+    <dimen name="youtube_image_height">30dp</dimen>
 </resources>
