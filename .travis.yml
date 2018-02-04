@@ -44,12 +44,12 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - android list target
-  - sh build.sh
+  -./gradlew clean build connectedAndroidTest -PdisablePreDex
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
     - $HOME/.gradle/caches/
