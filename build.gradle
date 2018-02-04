@@ -68,34 +68,6 @@ buildscript {
     }
 }
 
-def getMovieKey(){
-    def extraPropertiesFile = rootProject.file("extra.properties")
-    def extrProps = new Properties()
-    extrProps.load(new FileInputStream(extraPropertiesFile))
-
-    if (extraPropertiesFile.exists()) {
-
-        extrProps.load(new FileInputStream(extraPropertiesFile))
-
-        if (extrProps != null && extrProps.containsKey('MOVIE_API_KEY')) {
-
-            println 'Movie API Key Found'
-            return extrProps['MOVIE_API_KEY']
-        } else {
-            println 'Movie API Key Not Found'
-            return ''
-        }
-    } else {
-        println 'Movie API Key Not Found'
-       return ''
-    }
-}
-
-
-
-
-
-
 allprojects {
     repositories {
         google()
