@@ -1,46 +1,72 @@
 language: android
-jdk: oraclejdk8
-sudo: false
-
-env:
-  global:
-    - ANDROID_ABI=google_apis/armeabi-v7a
-
 android:
-  components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-26.0.2
-    - android-22
-    - android-26
-    - sys-img-armeabi-v7a-google_apis-22
-    - extra-android-m2repository
+   components:
+   - tools
+   - tools #Running this twice get's the latest build tools (https://github.com/codepath/android_guides/wiki/Setting-up-Travis-CI)
+   - platform-tools
+   - android-27
+   - build-tools-27.0.3
+   - extra
+   licenses:
+   - 'android-sdk-license-.+'
+
+jdk: oraclejdk8
+
+notifications:
+  email: false
+
+sudo: required #The build runs out of memory and is killed if we use the container system
 
 before_install:
-  - export EMULATOR="system-images;android-22;google_apis;armeabi-v7a"
-
-install:
- # Update sdk tools to latest version and install/update components
-  - echo yes | sdkmanager "tools"
-  - echo yes | sdkmanager "platforms;android-25" # Latest platform required by SDK tools
-  - echo yes | sdkmanager "platforms;android-22" # Android platform required by emulator
-  - echo yes | sdkmanager "extras;android;m2repository"
-  - echo yes | sdkmanager "extras;google;m2repository"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-  - echo yes | sdkmanager "$EMULATOR" # Install emulator system image
-
-before_script:
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window -engine classic &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+  - yes | sdkmanager "platforms;android-27"
 
 script:
-  - sudo chmod +x gradlew
-  - ./gradlew clean installDebug
-  - ./gradlew check
-  - ./gradlew testDebugUnitTest
-  - ./gradlew connectedDebugAndroidTest
+  - ./gradlew clean build
+
+
+#language: android
+#jdk: oraclejdk8
+#sudo: false
+#
+#env:
+#  global:
+#    - ANDROID_ABI=google_apis/armeabi-v7a
+#
+#android:
+#  components:
+#    - tools
+#    - platform-tools
+#    - tools
+#    - build-tools-26.0.2
+#    - android-22
+#    - android-26
+#    - sys-img-armeabi-v7a-google_apis-22
+#    - extra-android-m2repository
+#
+#before_install:
+#  - export EMULATOR="system-images;android-22;google_apis;armeabi-v7a"
+#
+#install:
+# # Update sdk tools to latest version and install/update components
+#  - echo yes | sdkmanager "tools"
+#  - echo yes | sdkmanager "platforms;android-25" # Latest platform required by SDK tools
+#  - echo yes | sdkmanager "platforms;android-22" # Android platform required by emulator
+#  - echo yes | sdkmanager "extras;android;m2repository"
+#  - echo yes | sdkmanager "extras;google;m2repository"
+#  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+#  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+#  - echo yes | sdkmanager "$EMULATOR" # Install emulator system image
+#
+#before_script:
+#  # Create and start emulator
+#  - echo no | android create avd --force -n test -t android-22 --abi google_apis/armeabi-v7a
+#  - emulator -avd test -no-skin -no-audio -no-window -engine classic &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
+#
+#script:
+#  - sudo chmod +x gradlew
+#  - ./gradlew clean installDebug
+#  - ./gradlew check
+#  - ./gradlew testDebugUnitTest
+#  - ./gradlew connectedDebugAndroidTest
