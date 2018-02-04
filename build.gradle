@@ -40,10 +40,61 @@ buildscript {
         espressoVersion = '3.0.0'
         mockitoVersion = '2.7.1'
 
-        moviesDBApiKey = '"bbe2969c244694d5eb27b4bf8ff8dedc"'
+        moviesDBApiKey = { ->
+            def extraPropertiesFile = rootProject.file("extra.properties")
+            def extrProps = new Properties()
+            extrProps.load(new FileInputStream(extraPropertiesFile))
+
+            if (extraPropertiesFile.exists()) {
+
+                extrProps.load(new FileInputStream(extraPropertiesFile))
+
+                if (extrProps != null && extrProps.containsKey('MOVIE_API_KEY')) {
+
+                    println "Movie API Key Found $extrProps['MOVIE_API_KEY']"
+                    return extrProps['MOVIE_API_KEY']
+                } else {
+                    println 'Movie API Key Not Found'
+                    return ''
+                }
+            } else {
+                println 'Movie API Key Not Found'
+                return ''
+            }
+        }
+
+
         baseUrl = '"https://api.themoviedb.org/3/"'
     }
 }
+
+def getMovieKey(){
+    def extraPropertiesFile = rootProject.file("extra.properties")
+    def extrProps = new Properties()
+    extrProps.load(new FileInputStream(extraPropertiesFile))
+
+    if (extraPropertiesFile.exists()) {
+
+        extrProps.load(new FileInputStream(extraPropertiesFile))
+
+        if (extrProps != null && extrProps.containsKey('MOVIE_API_KEY')) {
+
+            println 'Movie API Key Found'
+            return extrProps['MOVIE_API_KEY']
+        } else {
+            println 'Movie API Key Not Found'
+            return ''
+        }
+    } else {
+        println 'Movie API Key Not Found'
+       return ''
+    }
+}
+
+
+
+
+
 
 allprojects {
     repositories {
