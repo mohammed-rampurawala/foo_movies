@@ -1,4 +1,4 @@
-Foo Movies [![Build Status](https://travis-ci.org/mohammed-rampurawala/foo_movies.svg?branch=master)](https://travis-ci.org/mohammed-rampurawala/foo_movies)
+Foo Movies
 =================
 
 **Features.**
