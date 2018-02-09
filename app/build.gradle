@@ -25,7 +25,11 @@ android {
         }
     }
     buildTypes {
+        debug {
+
+        }
         release {
+            initSigninConfig()
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -34,40 +38,38 @@ android {
 }
 
 
-// Create a variable called keystorePropertiesFile, and initialize it to your
-// keystore.properties file, in the rootProject folder.
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-
-// Initialize a new Properties() object called keystoreProperties.
-def keystoreProperties = new Properties()
-
-// Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
-if (keystorePropertiesFile.exists()) {
-
+def initSigninConfig() {
+    def keystorePropertiesFile = file("keystore.properties")
+    def keystoreProperties = new Properties()
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-    if (keystoreProperties != null &&
-            keystoreProperties.containsKey('storeFile') &&
-            keystoreProperties.containsKey('storePassword') &&
-            keystoreProperties.containsKey('keyAlias') &&
-            keystoreProperties.containsKey('keyPassword')) {
+    if (keystorePropertiesFile.exists()) {
 
-        println 'keystore.properties found. Sign APK'
-        android.signingConfigs.config.storeFile file(keystoreProperties['storeFile'])
-        android.signingConfigs.config.storePassword keystoreProperties['storePassword']
-        android.signingConfigs.config.keyAlias keystoreProperties['keyAlias']
-        android.signingConfigs.config.keyPassword keystoreProperties['keyPassword']
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+        println('Build Variant::->'+keystoreProperties['buildVariant'])
 
+        if (keystoreProperties != null &&
+                keystoreProperties.containsKey('storeFile') &&
+                keystoreProperties.containsKey('storePassword') &&
+                keystoreProperties.containsKey('keyAlias') &&
+                keystoreProperties.containsKey('keyPassword')) {
+
+            println 'keystore.properties found. Sign APK'
+            android.signingConfigs.config.storeFile file(keystoreProperties['storeFile'])
+            android.signingConfigs.config.storePassword keystoreProperties['storePassword']
+            android.signingConfigs.config.keyAlias keystoreProperties['keyAlias']
+            android.signingConfigs.config.keyPassword keystoreProperties['keyPassword']
+
+        } else {
+            println 'keystore.properties found but some entries are missing'
+            android.buildTypes.release.signingConfig = null
+        }
     } else {
-        println 'keystore.properties found but some entries are missing'
+        println 'keystore.properties not found'
         android.buildTypes.release.signingConfig = null
     }
-} else {
-    println 'keystore.properties not found'
-    android.buildTypes.release.signingConfig = null
 }
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
